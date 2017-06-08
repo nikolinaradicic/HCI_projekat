@@ -1,0 +1,2 @@
+1|neki opis|23|true|true|false|1|s1,s2
+2|neki opis|23|true|true|false|1|s1,s2

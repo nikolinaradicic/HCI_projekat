@@ -1,0 +1,2 @@
+s1|neki softver|2000|ovo je opis tog softvera|Proizvodjac 1|www.nekisajt.com|0|2014
+s2|drugi softver|2000|ovo je opis tog softvera|Proizvodjac 1|www.nekisajt.com|2|2010

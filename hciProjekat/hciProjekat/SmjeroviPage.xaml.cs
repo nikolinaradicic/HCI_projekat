@@ -1,5 +1,7 @@
-﻿using System;
+﻿using hciProjekat.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,26 +22,49 @@ namespace hciProjekat
     /// </summary>
     public partial class SmjeroviPage : Page
     {
-        public SmjeroviPage()
+        private SmjeroviPage()
         {
+
             InitializeComponent();
+            this.DataContext = this;
+            Smjerovi = Smjer.ucitajSmjerove();
+            if (Smjerovi.Count > 0)
+            {
+                this.dgrSmjerovi.SelectedIndex = 0;
+            }
+        }
+
+        public ObservableCollection<Smjer> Smjerovi
+        {
+            get;
+            set;
+        }
+        private static SmjeroviPage instance;
+
+        public static SmjeroviPage getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new SmjeroviPage();
+            }
+            return instance;
         }
 
         private void PredmetiBtnClick(object sender, RoutedEventArgs e)
         {
-            PredmetiPage page = new PredmetiPage();
+            PredmetiPage page = PredmetiPage.getInstance();
             NavigationService.Navigate(page);
         }
 
         private void UcioniceBtnClick(object sender, RoutedEventArgs e)
         {
-            UcionicePage page = new UcionicePage();
+            UcionicePage page = UcionicePage.getInstance();
             NavigationService.Navigate(page);
         }
 
         private void SoftverBtnClick(object sender, RoutedEventArgs e)
         {
-            SoftverPage page = new SoftverPage();
+            SoftverPage page = SoftverPage.getInstance();
             NavigationService.Navigate(page);
         }
     }

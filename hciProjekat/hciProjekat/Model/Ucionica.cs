@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,40 @@ namespace hciProjekat.Model
             instaliraniSoftver = new List<Softver>();
         }
 
+        public static ObservableCollection<Ucionica> ucitajUcionice()
+        {
+            ObservableCollection<Ucionica> ucionice = new ObservableCollection<Ucionica>();
+
+            string[] lines = System.IO.File.ReadAllLines(@".\..\..\files\ucionice.txt");
+
+            foreach (string ss in lines)
+            {
+                Ucionica u = new Ucionica();
+                if (ss == "")
+                    return ucionice;
+
+                string[] param = ss.Split('|');
+
+                u.Id = param[0];
+                u.Opis = param[1];
+                u.brojMjesta = Convert.ToInt32(param[2]);
+                u.Projektor = Convert.ToBoolean(param[3]);
+                u.Tabla = Convert.ToBoolean(param[4]);
+                u.PametnaTabla = Convert.ToBoolean(param[5]);
+                u.InstaliranOS = (OS) Convert.ToInt32(param[6]);
+                string[] id_softvera = param[7].Split(',');
+                List<Softver> softveri = SoftverPage.getInstance().Softveri.ToList();
+                foreach(string s_id in id_softvera)
+                {
+                    Softver found = softveri.Find(i => i.Id.Equals(s_id));
+                    u.instaliraniSoftver.Add(found);
+                }
+                ucionice.Add(u);
+            }
+
+            return ucionice;
+        }
+
         public Ucionica(string id, string opis, int brojMjesta,
             bool projektor, bool tabla, bool pametnaTabla, List<Softver> softver)
         {
@@ -50,7 +85,7 @@ namespace hciProjekat.Model
         {
             get
             {
-                return InstaliranOS;
+                return instaliranOS;
             }
             set
             {

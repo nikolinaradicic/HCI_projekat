@@ -9,11 +9,54 @@
       Title="UcionicePage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Button Content="Ucionice" IsEnabled="False"></Button>
             <Button Content="Predmeti" Margin="10,0,0,0" Click="PredmetiBtnClick"></Button>
-            <Button Content="Smjerovi" Margin="10,0,0,0"></Button>
-            <Button Content="Softver" Margin="10,0,0,0"></Button>
+            <Button Content="Smjerovi" Margin="10,0,0,0" Click="SmjeroviBtnClick"></Button>
+            <Button Content="Softver" Margin="10,0,0,0" Click="SoftverBtnClick"></Button>
         </StackPanel>
+        <DataGrid x:Name="dgrUcionice" Margin="0,40,0,0" Height="300" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" ItemsSource="{Binding Path=Ucionice}"/>
+        <Grid Grid.Column="0" Grid.Row="1" Margin="0,10,0,0" DataContext="{Binding ElementName=dgrUcionice,Path=SelectedItem}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0">Oznaka:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1">Opis:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2">Broj mjesta:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3">Projektor:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4">Tabla:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5">Pametna tabla:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="6">Operativni sistem:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="7">Instalirani softver:</TextBlock>
+
+
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Id}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Opis}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=BrojMjesta}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Projektor}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Tabla}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=PametnaTabla}"></TextBox>
+            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=InstaliranOS}"></TextBox>
+
+            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=InstaliraniSoftver}"></TextBox>
+        </Grid>
     </Grid>
 </Page>

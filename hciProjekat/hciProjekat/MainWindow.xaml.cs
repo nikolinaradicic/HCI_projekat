@@ -27,7 +27,7 @@ namespace hciProjekat
         
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new UcionicePage();
+            MainFrame.Content = UcionicePage.getInstance();
         }
     }
 }

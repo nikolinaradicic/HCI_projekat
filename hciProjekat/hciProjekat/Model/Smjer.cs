@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +13,12 @@ namespace hciProjekat.Model
         private string id;
         private string naziv;
         private string opis;
-        private DateTime datumUvodjenja;
+        private string datumUvodjenja;
         
 
         public Smjer(){}
 
-        public Smjer(string id, string naziv, string opis, DateTime datumUvodjenja)
+        public Smjer(string id, string naziv, string opis, string datumUvodjenja)
         {
             this.id = id;
             this.naziv = naziv;
@@ -37,6 +39,30 @@ namespace hciProjekat.Model
             }
         }
 
+        public static ObservableCollection<Smjer> ucitajSmjerove()
+        {
+            ObservableCollection<Smjer> smjerovi = new ObservableCollection<Smjer>();
+
+            string[] lines = System.IO.File.ReadAllLines(@".\..\..\files\smjerovi.txt");
+
+            foreach (string ss in lines)
+            {
+                Smjer s = new Smjer();
+                if (ss == "")
+                    return smjerovi;
+
+                string[] param = ss.Split('|');
+
+                s.Id = param[0];
+                s.Opis = param[1];
+                s.Naziv = param[2];
+                s.datumUvodjenja = param[3];
+                smjerovi.Add(s);
+            }
+
+            return smjerovi;
+        }
+
         public string Naziv
         {
             get
@@ -48,7 +74,7 @@ namespace hciProjekat.Model
                 naziv = value;
             }
         }
-        public DateTime DatumUvodjenja
+        public string DatumUvodjenja
         {
             get
             {
