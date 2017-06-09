@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Komande\Komande.cs" />
     <Compile Include="PredmetiPage.xaml.cs">
       <DependentUpon>PredmetiPage.xaml</DependentUpon>
     </Compile>
