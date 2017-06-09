@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,7 +71,7 @@ namespace hciProjekat.Model
         }
 
         public Ucionica(string id, string opis, int brojMjesta,
-            bool projektor, bool tabla, bool pametnaTabla, List<Softver> softver)
+            bool projektor, bool tabla, bool pametnaTabla, List<Softver> softver, OS instaliranOS)
         {
             this.id = id;
             this.opis = opis;
@@ -79,6 +80,7 @@ namespace hciProjekat.Model
             this.tabla = tabla;
             this.pametnaTabla = pametnaTabla;
             this.instaliraniSoftver = softver;
+            this.instaliranOS = instaliranOS;
         }
 
         public OS InstaliranOS
@@ -164,6 +166,26 @@ namespace hciProjekat.Model
                 pametnaTabla = value;
             }
         }
-        
+
+        internal static void sacuvajUcionice(List<Ucionica> list)
+        {
+            StreamWriter f = new StreamWriter(@".\..\..\files\ucionice.txt");
+            foreach (Ucionica s in list)
+            {
+                string line = s.Id + "|" + "|" + s.Opis + "|" + s.BrojMjesta + "|" + s.Projektor + "|" + s.Tabla + "|"
+                      + s.PametnaTabla + "|" + (int)s.InstaliranOS + "|";
+                for(int i = 0; i < s.InstaliraniSoftver.Count; i++)
+                {
+                    line += s.InstaliraniSoftver[i].Id;
+                    if (i != s.InstaliraniSoftver.Count - 1)
+                    {
+                        line += ",";
+                    }
+                }
+                
+                f.WriteLine(line);
+            }
+            f.Close();
+        }
     }
 }

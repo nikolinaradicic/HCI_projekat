@@ -1,4 +1,4 @@
-s3|ooooo|hhhhhh|02-02-1995
+1|ooooo|hhhhhh|02-02-1995
 4|neki o|neki naziv|02-02-1991
 tuta|jdjdk|kaokdjd|kdkkd
 aaaaaaaaaaa|aaaaaaa|aaaaaaaa|aaaaaaaa
@@ -6,3 +6,4 @@ uuuuuuuu|oo|naz|iii
 u|u|u|u
 jjjj|||
 jjjjjjjjjjjjjjjj|||
+hhhhhh|||

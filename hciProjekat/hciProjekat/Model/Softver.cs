@@ -22,7 +22,7 @@ namespace hciProjekat.Model
         public Softver(){}
 
         public Softver(string id, string naziv, string proizvodjac,
-            string sajt, int godinaIzdavanja, double cijena, string opis)
+            string sajt, int godinaIzdavanja, double cijena, string opis, OS operativniSistem)
         {
             this.id = id;
             this.naziv = naziv;
@@ -31,6 +31,7 @@ namespace hciProjekat.Model
             this.godinaIzdavanja = godinaIzdavanja;
             this.cijena = cijena;
             this.opis = opis;
+            this.operativniSistem = operativniSistem;
         }
 
         public OS OperativniSistem
@@ -161,6 +162,16 @@ namespace hciProjekat.Model
             return softver;
         }
 
+        internal static void sacuvajSoftver(List<Softver> list)
+        {
+            StreamWriter f = new StreamWriter(@".\..\..\files\softver.txt");
+            foreach (Softver s in list)
+            {
+                f.WriteLine(s.Id + "|" + s.Naziv + "|" + s.Cijena + "|" + s.Opis + "|" + s.Proizvodjac + "|" + s.Sajt + "|"
+                    + (int) s.OperativniSistem + "|" + s.GodinaIzdavanja);
+            }
+            f.Close();
+        }
     }
 
 }

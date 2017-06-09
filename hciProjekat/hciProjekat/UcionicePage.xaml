@@ -4,27 +4,51 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:hciProjekat"
+      xmlns:cmd="clr-namespace:hciProjekat.Komande"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="UcionicePage">
 
+    <Page.CommandBindings>
+        <CommandBinding
+            CanExecute="DodajUcionicu_CanExecute"
+            Command="cmd:Komande.Novi"
+            Executed="DodajUcionicu_Executed" />
+        <CommandBinding
+            CanExecute="IzmijeniUcionicu_CanExecute"
+            Command="cmd:Komande.Izmijeni"
+            Executed="IzmijeniUcionicu_Executed" />
+    </Page.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Button Content="Ucionice" IsEnabled="False"></Button>
             <Button Content="Predmeti" Margin="10,0,0,0" Click="PredmetiBtnClick"></Button>
             <Button Content="Smjerovi" Margin="10,0,0,0" Click="SmjeroviBtnClick"></Button>
             <Button Content="Softver" Margin="10,0,0,0" Click="SoftverBtnClick"></Button>
         </StackPanel>
-        <DataGrid x:Name="dgrUcionice" Margin="0,40,0,0" Height="300" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" ItemsSource="{Binding Path=Ucionice}"/>
-        <Grid Grid.Column="0" Grid.Row="1" Margin="0,10,0,0" DataContext="{Binding ElementName=dgrUcionice,Path=SelectedItem}">
+        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dgrUcionice" Margin="10,10,0,0" MinWidth="200" MinHeight="200"
+                  HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True"
+                  ItemsSource="{Binding Path=Ucionice}"
+                  IsEnabled="{Binding RezimPregled}"
+                  SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Margin="0,10,0,0" Grid.Column="0" Grid.Row="2" 
+                    Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi"></Button>
+            <Button Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Margin="10,0,0,0" Command="cmd:Komande.Izmijeni"></Button>
+            <Button Content="Obrisi" IsEnabled="{Binding EnableIzbrisi}" Margin="10,0,0,0" Click="Obrisi_Click"></Button>
+        </StackPanel>
+        <Grid x:Name="gridUcionice" Grid.Column="0" Grid.Row="3" Margin="0,10,0,0" DataContext="{Binding Path=SelectedUcionica}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -35,6 +59,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -51,12 +76,28 @@
             <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Id}"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Opis}"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=BrojMjesta}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Projektor}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=Tabla}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=PametnaTabla}"></TextBox>
+            <CheckBox Grid.Column="1" Grid.Row="3" IsChecked="{Binding Path=Projektor}"></CheckBox>
+            <CheckBox Grid.Column="1" Grid.Row="4" IsChecked="{Binding Path=Tabla}"></CheckBox>
+            <CheckBox Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=PametnaTabla}"></CheckBox>
             <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=InstaliranOS}"></TextBox>
 
             <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=InstaliraniSoftver}"></TextBox>
+
+            <StackPanel Grid.Row="8" Grid.Column="2" 
+                        Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <Button x:Name="SacuvajUcionicu" Click="SacuvajUcionicu_Click" Content="Dodaj predmet">
+                </Button>
+                <Button x:Name="SacuvajIzmjenu" Margin="10,0,0,0" Click="SacuvajIzmjenu_Click" Content="Sacuvaj">
+                </Button>
+                <Button x:Name="IzmjenaOdustani"
+                        Margin="10,0,0,0"
+                        Click="IzmjenaOdustani_Click"
+                        Content="Odustani">
+                </Button>
+                <Button x:Name="Odustani" Margin="10,0,0,0" Click="Odustani_Click" Content="Odustani">
+                </Button>
+
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
