@@ -26,37 +26,24 @@ namespace hciProjekat
         Raspored raspored = new Raspored();
         Termin termin = new Termin();
         Ucionica ucionica = new Ucionica();
+        Predmet odabranPredmet = new Predmet();
 
         private RasporedPage()
         {
             InitializeComponent();
             this.DataContext = this;
 
-            List<Ucionica> listaUcionica = new List<Ucionica>();
-            Ucionice = Ucionica.ucitajUcionice();
-            foreach (Ucionica u in Ucionice)
-            {
-                listaUcionica.Add(new Ucionica { Id = u.Id, Opis = u.Opis });
-                raspored.Termini[u.Id] = new List<Termin>();
-            }
+            Ucionice = UcionicePage.getInstance().Ucionice;
+            List<Predmet> listaPredmeta = new List<Predmet>();
 
+            Predmeti = PredmetiPage.getInstance().Predmeti;
 
             List<Termin> termini = new List<Termin>();
             Termini1 = Termin.ucitajTermine();
             foreach (Termin t in Termini1) {
                 termini.Add(new Termin { VremeTermina = t.VremeTermina });
             }
-
-            //List<Termin> brojevi = new List<Termin>();
-            //BrojTermina = Termin.ucitajVreme();
-            //foreach (Termin t in BrojTermina) {
-            //    brojevi.Add(new Termin { BrojTermina = t.BrojTermina });
-            //}
-
-            Ucionice1 = new ObservableCollection<Ucionica>(listaUcionica);
             Termini2 = new ObservableCollection<Termin>(termini);
-            //BrojTermina2 = new ObservableCollection<Termin>(brojevi);
-
             Termini = new List<List<ObservableCollection<Predmet>>>();
             for (int i = 0; i < 61; i++)
             {
@@ -66,6 +53,7 @@ namespace hciProjekat
                 }
                 Termini.Add(temp);
             }
+            Termini3 = new List<List<ObservableCollection<Predmet>>>(Termini);
 
             for (int j = 0; j < 7; j++)
             {
@@ -82,7 +70,7 @@ namespace hciProjekat
                 }
             }
 
-            for (int j = 1; j <36 ; j++)
+            for (int j = 1; j <61 ; j++)
             {
                 DataGridCell cell = new DataGridCell();
                 cell.Content = Termini1[j].VremeTermina;
@@ -109,24 +97,16 @@ namespace hciProjekat
                 {
                     ListView list = new ListView();
                     list.ItemsSource = Termini[i][j];
+                    list.AllowDrop = true;
+                    list.DragEnter+= ListView_DragEnter;
+                    list.Drop += ListView_Drop;
+                    list.MouseMove += ListView_MouseMove;
+                    list.PreviewMouseLeftButtonDown += ListView_PreviewMouseLeftButtonDown;
                     Grid.SetRow(list, i);
                     Grid.SetColumn(list, j);
                     glavniGrid.Children.Add(list);
                 }
             }
-
-            //------
-
-            //< DataGridCell
-            //      Grid.Row = "1"
-            //      Grid.Column = "0"
-            //      BorderBrush = "Black"
-            //      BorderThickness = "1" >
-            //      07:00
-            //  </ DataGridCell >
-
-            //------
-
 
         }
 
@@ -143,6 +123,7 @@ namespace hciProjekat
 
 
         public List<List<ObservableCollection<Predmet>>> Termini { get; private set; }
+        public List<List<ObservableCollection<Predmet>>> Termini3 { get; private set; }
 
         public ObservableCollection<Termin> Termini1
         {
@@ -154,7 +135,6 @@ namespace hciProjekat
             get;
             set;
         }
-
 
         public ObservableCollection<Termin> BrojTermina
         {
@@ -180,6 +160,16 @@ namespace hciProjekat
             set;
         }
 
+        public ObservableCollection<Predmet> Predmeti {
+            get;
+            set;
+        }
+
+        public ObservableCollection<Predmet> Predmeti1
+        {
+            get;
+            set;
+        }
 
 
         private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -202,11 +192,11 @@ namespace hciProjekat
                     FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
 
                 // Find the data behind the ListViewItem
-                Termin t = (Termin)listView.ItemContainerGenerator.
+                Predmet p = (Predmet)listView.ItemContainerGenerator.
                     ItemFromContainer(listViewItem);
 
                 // Initialize the drag & drop operation
-                DataObject dragData = new DataObject("myFormat", t);
+                DataObject dragData = new DataObject("myFormat", p);
                 DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
             }
         }
@@ -237,12 +227,100 @@ namespace hciProjekat
         {
             if (e.Data.GetDataPresent("myFormat"))
             {
-                Termin t = e.Data.GetData("myFormat") as Termin;
+                ListView listView = sender as ListView;
+                //minimalnu duzinu termina a ona je u predmetu*45
+                int row = Grid.GetRow(listView);
+                int column = Grid.GetColumn(listView);
+                Predmet t = e.Data.GetData("myFormat") as Predmet;
+                //MessageBox.Show("DUZINA "+t.MinDuzinaTermina);
                 //Predmeti1.Remove(student);
-                raspored.Termini["1"].Add(t);
+                if (Termini[row][column].Count==1)
+                {
+                    MessageBox.Show("Popunjen termin");
+                    return;
+                }
+
+                if (row + 3 * t.MinDuzinaTermina>61) {
+                    MessageBox.Show("Prekoracili ste termin.");
+                    return;
+                }
+                var end = 0;
+                for (int i = 0; i < t.MinDuzinaTermina; i++) {
+                    Termini[row+end][column].Add(t);
+                    Termini[row + 1+end][column].Add(t);
+                    Termini[row + 2+end][column].Add(t);
+                    var j = i+1;
+                    end = 3*j;
+                }
+                
+                //raspored.Termini.Add(t);
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (odabranP.SelectedItem == null)
+            {
+                MessageBox.Show("Potrebno je odabrati predmet.");
+                return;
+            }
+            odabranPredmet = (Predmet)odabranP.SelectedItem;
+            List<Ucionica> ucioniceTemp = new List<Ucionica>();
+            foreach (Ucionica u in Ucionice) {
+                if ((odabranPredmet.NeophodanOS == u.InstaliranOS)){
+                    List<Softver> softveri = u.InstaliraniSoftver;
+                    foreach (Softver s in softveri) {
+                        if (odabranPredmet.NeophodanSoftver.Equals(s)) {
+                            ucioniceTemp.Add(u);
+                        }
+                    }
+                }
+            }
+            //MessageBox.Show(" ucionice " + ucioniceTemp.Count());
+            Ucionice1 = new ObservableCollection<Ucionica>(ucioniceTemp);
+            prikazUcionica.ItemsSource = Ucionice1;
+            prikazUcionica.Visibility = Visibility.Visible;
+            prikazTermina.Visibility = Visibility.Hidden;
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (prikazUcionica.SelectedItem == null)
+            {
+                MessageBox.Show("Potrebno je odabrati ucionicu.");
+                return;
+            }
+            ucionica =(Ucionica) prikazUcionica.SelectedItem;
+
+            List<Predmet> predmeti = new List<Predmet>();
+            predmeti.Add(odabranPredmet);
+            Predmeti1 = new ObservableCollection<Predmet>(predmeti);
+
+            prikazTermina.ItemsSource = Predmeti1;
+            prikazTermina.Visibility = Visibility.Visible;
+            dugme.Visibility = Visibility.Visible;
+            MessageBox.Show("ok");
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            List<Predmet> predmeti = new List<Predmet>();
+            predmeti.Add(odabranPredmet);
+            Predmeti1 = new ObservableCollection<Predmet>(predmeti);
+            prikazTermina.ItemsSource = Predmeti1;
+            dugme.Visibility = Visibility.Visible;
+            MessageBox.Show("ok");
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            ListView listView = sender as ListView;
+            int row = Grid.GetRow(listView);
+            int column = Grid.GetColumn(listView);
+            Predmet p=(Predmet)prikazTermina.SelectedItem;
+            MessageBox.Show(" + "+p);
+        }
     }
 
 
