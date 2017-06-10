@@ -4,6 +4,25 @@
              xmlns:local="clr-namespace:hciProjekat"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button" x:Key="OverButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border">
+                            <Border.ContextMenu>
+                                <ContextMenu x:Name="cmenu">
+                                    <TextBlock>Information</TextBlock>
+                                </ContextMenu>
+                            </Border.ContextMenu>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="ContextMenu.IsOpen" Value="True" TargetName="cmenu" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace hciProjekat.Model
 {
     public enum OS { widows, linux, svejedno };
 
-    public class Predmet
+    public class Predmet: INotifyPropertyChanged
     {
         private string id;
         private string naziv;
@@ -23,6 +24,15 @@ namespace hciProjekat.Model
         private Smjer smjer;
         private OS neophodanOS;
         private Softver neophodanSoftver;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         public string Id
         {

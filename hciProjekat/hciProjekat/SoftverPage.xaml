@@ -16,12 +16,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <Button Content="Ucionice" Click="UcioniceBtnClick"></Button>
-            <Button Content="Predmeti" Margin="10,0,0,0" Click="PredmetiBtnClick"></Button>
-            <Button Content="Smjerovi" Margin="10,0,0,0" Click="SmjeroviBtnClick"></Button>
-            <Button Content="Softver" Margin="10,0,0,0" IsEnabled="False"></Button>
-        </StackPanel>
         <DataGrid x:Name="dgrSoftver" Margin="0,40,0,0" Height="300" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" ItemsSource="{Binding Path=Softveri}"/>
         <Grid Grid.Column="0" Grid.Row="1" Margin="0,10,0,0" DataContext="{Binding ElementName=dgrSoftver,Path=SelectedItem}">
             <Grid.RowDefinitions>

@@ -55,8 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ModelovanRaspored.cs" />
+    <Compile Include="Model\Raspored.cs" />
+    <Compile Include="Model\Termin.cs" />
     <Compile Include="PredmetiPage.xaml.cs">
       <DependentUpon>PredmetiPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RasporedPage.xaml.cs">
+      <DependentUpon>RasporedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SmjeroviPage.xaml.cs">
       <DependentUpon>SmjeroviPage.xaml</DependentUpon>
@@ -80,6 +86,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PredmetiPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RasporedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,6 +128,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\App.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Model.ModelovanRaspored.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Model.Predmet.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Model.Raspored.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Model.Smjer.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Model.Softver.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Model.Termin.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Model.Ucionica.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\hciProjekat.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\MainWindow.datasource" />
+    <None Include="Properties\DataSources\PredmetiPage.datasource" />
+    <None Include="Properties\DataSources\RasporedPage.datasource" />
+    <None Include="Properties\DataSources\SmjeroviPage.datasource" />
+    <None Include="Properties\DataSources\SoftverPage.datasource" />
+    <None Include="Properties\DataSources\UcionicePage.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -126,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Stylesheet1.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
