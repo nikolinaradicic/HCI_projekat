@@ -121,6 +121,21 @@ namespace hciProjekat
             }
         }
 
+        internal void IzmijeniSoftver()
+        {
+            RezimPregled = false;
+            EnableIzmijeni = false;
+            EnableIzbrisi = false;
+            indexSelektovanog = Softveri.IndexOf(selectedSoftver);
+            SelectedSoftver = new Softver(selectedSoftver.Id, selectedSoftver.Naziv, selectedSoftver.Proizvodjac, selectedSoftver.Sajt,
+                selectedSoftver.GodinaIzdavanja, selectedSoftver.Cijena, selectedSoftver.Opis, selectedSoftver.OperativniSistem);
+
+            gridSoftver.IsEnabled = true;
+            SacuvajIzmjenu.Visibility = Visibility.Visible;
+            IzmjenaOdustani.Visibility = Visibility.Visible;
+
+        }
+
         public static SoftverPage getInstance()
         {
             if (instance == null)
@@ -135,32 +150,9 @@ namespace hciProjekat
             get;
             set;
         }
+        
 
-
-        private void PredmetiBtnClick(object sender, RoutedEventArgs e)
-        {
-            PredmetiPage page = PredmetiPage.getInstance();
-            NavigationService.Navigate(page);
-        }
-
-        private void UcioniceBtnClick(object sender, RoutedEventArgs e)
-        {
-            UcionicePage page = UcionicePage.getInstance();
-            NavigationService.Navigate(page);
-        }
-
-        private void SmjeroviBtnClick(object sender, RoutedEventArgs e)
-        {
-            SmjeroviPage page = SmjeroviPage.getInstance();
-            NavigationService.Navigate(page);
-        }
-
-        private void DodajSoftver_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void DodajSoftver_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void dodajSoftver()
         {
 
             SelectedSoftver = new Softver();
@@ -170,28 +162,6 @@ namespace hciProjekat
             Odustani.Visibility = Visibility.Visible;
             SacuvajSoftver.Visibility = Visibility.Visible;
             gridSoftver.IsEnabled = true;
-
-        }
-
-        private void IzmijeniSoftver_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void IzmijeniSoftver_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-            RezimPregled = false;
-            EnableIzmijeni = false;
-            EnableIzbrisi = false;
-            indexSelektovanog = Softveri.IndexOf(selectedSoftver);
-            SelectedSoftver = new Softver(selectedSoftver.Id, selectedSoftver.Naziv, selectedSoftver.Proizvodjac, selectedSoftver.Sajt,
-                selectedSoftver.GodinaIzdavanja, selectedSoftver.Cijena, selectedSoftver.Opis, selectedSoftver.OperativniSistem);
-
-            gridSoftver.IsEnabled = true;
-            SacuvajIzmjenu.Visibility = Visibility.Visible;
-            IzmjenaOdustani.Visibility = Visibility.Visible;
-
         }
 
         private void SacuvajSoftver_Click(object sender, RoutedEventArgs e)
@@ -287,7 +257,7 @@ namespace hciProjekat
                 EnableIzmijeni = false;
                 EnableIzbrisi = false;
             }
-
+            Softver.sacuvajSoftver(Softveri.ToList());
         }
     }
 }

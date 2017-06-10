@@ -1,9 +1,7 @@
-1|ooooo|hhhhhh|02-02-1995
+s2|ooooo|naziv smjera|02-02-1995
 4|neki o|neki naziv|02-02-1991
 tuta|jdjdk|kaokdjd|kdkkd
 aaaaaaaaaaa|aaaaaaa|aaaaaaaa|aaaaaaaa
 uuuuuuuu|oo|naz|iii
-u|u|u|u
-jjjj|||
-jjjjjjjjjjjjjjjj|||
-hhhhhh|||
+s1|opis s1|naziv s1|datum s1
+jjj|jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj|jjj|dhhdhd

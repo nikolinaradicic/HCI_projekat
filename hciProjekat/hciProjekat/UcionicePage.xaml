@@ -5,20 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:hciProjekat"
       xmlns:cmd="clr-namespace:hciProjekat.Komande"
+      xmlns:en="clr-namespace:hciProjekat.Model"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="UcionicePage">
-
-    <Page.CommandBindings>
-        <CommandBinding
-            CanExecute="DodajUcionicu_CanExecute"
-            Command="cmd:Komande.Novi"
-            Executed="DodajUcionicu_Executed" />
-        <CommandBinding
-            CanExecute="IzmijeniUcionicu_CanExecute"
-            Command="cmd:Komande.Izmijeni"
-            Executed="IzmijeniUcionicu_Executed" />
-    </Page.CommandBindings>
+    <Page.Resources>
+        <ObjectDataProvider x:Key="enumValues"
+        MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="en:OS"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,39 +28,34 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <Button Content="Ucionice" IsEnabled="False"></Button>
-            <Button Content="Predmeti" Margin="10,0,0,0" Click="PredmetiBtnClick"></Button>
-            <Button Content="Smjerovi" Margin="10,0,0,0" Click="SmjeroviBtnClick"></Button>
-            <Button Content="Softver" Margin="10,0,0,0" Click="SoftverBtnClick"></Button>
-        </StackPanel>
-        <DataGrid Grid.Column="0" Grid.Row="1" x:Name="dgrUcionice" Margin="10,10,0,0" MinWidth="200" MinHeight="200"
+        <DataGrid Grid.Column="0" Grid.Row="0" x:Name="dgrUcionice" Margin="10,10,0,0" MinWidth="200" MinHeight="200"
                   HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True"
                   ItemsSource="{Binding Path=Ucionice}"
                   IsEnabled="{Binding RezimPregled}"
                   SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <StackPanel Margin="0,10,0,0" Grid.Column="0" Grid.Row="2" 
+        <StackPanel Margin="0,10,0,0" Grid.Column="0" Grid.Row="1" 
                     Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi"></Button>
             <Button Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Margin="10,0,0,0" Command="cmd:Komande.Izmijeni"></Button>
             <Button Content="Obrisi" IsEnabled="{Binding EnableIzbrisi}" Margin="10,0,0,0" Click="Obrisi_Click"></Button>
         </StackPanel>
-        <Grid x:Name="gridUcionice" Grid.Column="0" Grid.Row="3" Margin="0,10,0,0" DataContext="{Binding Path=SelectedUcionica}">
+        <Grid x:Name="gridUcionice" Grid.Column="0" Grid.Row="2" Margin="0,10,0,0" DataContext="{Binding Path=SelectedUcionica}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="30"/>
+                <RowDefinition Height="Auto" MinHeight="30"/>
+                <RowDefinition Height="Auto" MinHeight="30"/>
+                <RowDefinition Height="Auto" MinHeight="30"/>
+
+                <RowDefinition Height="Auto" MinHeight="30"/>
+                <RowDefinition Height="Auto" MinHeight="30"/>
+                <RowDefinition Height="Auto" MinHeight="30"/>
+                <RowDefinition Height="Auto" MinHeight="30"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition MinWidth="100" Width="Auto"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0">Oznaka:</TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="1">Opis:</TextBlock>
@@ -79,7 +73,9 @@
             <CheckBox Grid.Column="1" Grid.Row="3" IsChecked="{Binding Path=Projektor}"></CheckBox>
             <CheckBox Grid.Column="1" Grid.Row="4" IsChecked="{Binding Path=Tabla}"></CheckBox>
             <CheckBox Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=PametnaTabla}"></CheckBox>
-            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=InstaliranOS}"></TextBox>
+            <ComboBox Grid.Column="1" Grid.Row="6" 
+                      ItemsSource="{Binding Source={StaticResource enumValues}}"
+                      SelectedItem="{Binding Path=InstaliranOS}"></ComboBox>
 
             <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=InstaliraniSoftver}"></TextBox>
 

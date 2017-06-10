@@ -136,30 +136,8 @@ namespace hciProjekat
             set;
         }
 
-        private void PredmetiBtnClick(object sender, RoutedEventArgs e)
-        {
-            PredmetiPage page = PredmetiPage.getInstance();
-            NavigationService.Navigate(page);
-        }
 
-        private void SoftverBtnClick(object sender, RoutedEventArgs e)
-        {
-            SoftverPage page = SoftverPage.getInstance();
-            NavigationService.Navigate(page);
-        }
-
-        private void SmjeroviBtnClick(object sender, RoutedEventArgs e)
-        {
-            SmjeroviPage page = SmjeroviPage.getInstance();
-            NavigationService.Navigate(page);
-        }
-
-        private void DodajUcionicu_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void DodajUcionicu_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void DodajUcionicu()
         {
 
             SelectedUcionica = new Ucionica();
@@ -172,12 +150,7 @@ namespace hciProjekat
 
         }
 
-        private void IzmijeniUcionicu_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void IzmijeniUcionicu_Executed(object sender, ExecutedRoutedEventArgs e)
+        public void IzmijeniUcionicu()
         {
 
             RezimPregled = false;

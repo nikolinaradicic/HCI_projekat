@@ -131,32 +131,9 @@ namespace hciProjekat
             return instance;
         }
 
-        private void PredmetiBtnClick(object sender, RoutedEventArgs e)
-        {
-            PredmetiPage page = PredmetiPage.getInstance();
-            NavigationService.Navigate(page);
-        }
 
-        private void UcioniceBtnClick(object sender, RoutedEventArgs e)
+        internal void dodajSmjer()
         {
-            UcionicePage page = UcionicePage.getInstance();
-            NavigationService.Navigate(page);
-        }
-
-        private void SoftverBtnClick(object sender, RoutedEventArgs e)
-        {
-            SoftverPage page = SoftverPage.getInstance();
-            NavigationService.Navigate(page);
-        }
-
-        private void DodajSmjer_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void DodajSmjer_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
             SelectedSmjer = new Smjer();
             RezimPregled = false;
             EnableIzmijeni = false;
@@ -164,15 +141,11 @@ namespace hciProjekat
             Odustani.Visibility = Visibility.Visible;
             SacuvajSmjer.Visibility = Visibility.Visible;
             gridSmjer.IsEnabled = true;
-
         }
+        
+        
 
-        private void IzmijeniSmjer_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void Izmijeni_Executed(object sender, ExecutedRoutedEventArgs e)
+        internal void izmijeniSmjer()
         {
 
             RezimPregled = false;
@@ -180,13 +153,12 @@ namespace hciProjekat
             EnableIzbrisi = false;
             indexSelektovanog = Smjerovi.IndexOf(selectedSmjer);
             SelectedSmjer = new Smjer(selectedSmjer.Id, selectedSmjer.Naziv, selectedSmjer.Opis, selectedSmjer.DatumUvodjenja);
-            
+
             gridSmjer.IsEnabled = true;
             SacuvajIzmjenu.Visibility = Visibility.Visible;
             IzmjenaOdustani.Visibility = Visibility.Visible;
-
         }
-
+        
         private void SacuvajSmjer_Click(object sender, RoutedEventArgs e)
         {
             Smjerovi.Add(SelectedSmjer);

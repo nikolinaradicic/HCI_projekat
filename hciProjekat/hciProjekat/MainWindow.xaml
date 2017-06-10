@@ -3,10 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:hciProjekat.Komande"
         xmlns:local="clr-namespace:hciProjekat"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1500"
          WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.CommandBindings>
+        <CommandBinding
+            CanExecute="DodajSoftver_CanExecute"
+            Command= "cmd:Komande.Novi"
+            Executed="DodajSoftver_Executed" />
+        <CommandBinding
+            CanExecute="IzmijeniSoftver_CanExecute"
+            Command="cmd:Komande.Izmijeni"
+            Executed="IzmijeniSoftver_Executed" />
+        <CommandBinding
+            CanExecute="DodajSmjer_CanExecute"
+            Command= "cmd:Komande.Novi"
+            Executed="DodajSmjer_Executed" />
+        <CommandBinding
+            CanExecute="IzmijeniSmjer_CanExecute"
+            Command="cmd:Komande.Izmijeni"
+            Executed="IzmijeniSmjer_Executed" />
+        <CommandBinding
+            CanExecute="DodajUcionicu_CanExecute"
+            Command="cmd:Komande.Novi"
+            Executed="DodajUcionicu_Executed" />
+        <CommandBinding
+            CanExecute="IzmijeniUcionicu_CanExecute"
+            Command="cmd:Komande.Izmijeni"
+            Executed="IzmijeniUcionicu_Executed" />
+        <CommandBinding
+            CanExecute="DodajPredmet_CanExecute"
+            Command="cmd:Komande.Novi"
+            Executed="DodajPredmet_Executed" />
+        <CommandBinding
+            CanExecute="IzmijeniPredmet_CanExecute"
+            Command="cmd:Komande.Izmijeni"
+            Executed="IzmijeniPredmet_Executed" />
+
+    </Window.CommandBindings>
 
     <Grid Name="pnlMainGrid">
         <Grid Background="Black" Margin="0,2,0,581">
