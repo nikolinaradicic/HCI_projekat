@@ -4,21 +4,65 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:hciProjekat"
+      xmlns:en="clr-namespace:hciProjekat.Model"
+      xmlns:cmd="clr-namespace:hciProjekat.Komande"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="SoftverPage">
+    <Page.Resources>
+        <ObjectDataProvider x:Key="enumValues"
+        MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="en:OS"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Page.Resources>
+
+    <Page.CommandBindings>
+        <CommandBinding
+            CanExecute="DodajSoftver_CanExecute"
+            Command="cmd:Komande.Novi"
+            Executed="DodajSoftver_Executed" />
+        <CommandBinding
+            CanExecute="IzmijeniSoftver_CanExecute"
+            Command="cmd:Komande.Izmijeni"
+            Executed="IzmijeniSoftver_Executed" />
+    </Page.CommandBindings>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dgrSoftver" Margin="0,40,0,0" Height="300" Width="500" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" ItemsSource="{Binding Path=Softveri}"/>
-        <Grid Grid.Column="0" Grid.Row="1" Margin="0,10,0,0" DataContext="{Binding ElementName=dgrSoftver,Path=SelectedItem}">
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Button Content="Ucionice" Click="UcioniceBtnClick"></Button>
+            <Button Content="Predmeti" Margin="10,0,0,0" Click="PredmetiBtnClick"></Button>
+            <Button Content="Smjerovi" Margin="10,0,0,0" Click="SmjeroviBtnClick"></Button>
+            <Button Content="Softver" Margin="10,0,0,0" IsEnabled="False"></Button>
+        </StackPanel>
+        <DataGrid x:Name="dgrSoftver" 
+                  Grid.Column="0" Grid.Row="1"
+                  Margin="10,10,0,0" MinHeight="200" MinWidth="200"
+                  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                  IsReadOnly="True" ItemsSource="{Binding Path=Softveri}"
+                  IsEnabled="{Binding RezimPregled}"
+                  SelectedItem="{Binding Path=SelectedSoftver, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Margin="0,10,0,0" Grid.Column="0" Grid.Row="2" 
+                    Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi"></Button>
+            <Button Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Margin="10,0,0,0" Command="cmd:Komande.Izmijeni"></Button>
+            <Button Content="Obrisi" IsEnabled="{Binding EnableIzbrisi}" Margin="10,0,0,0" Click="Obrisi_Click"></Button>
+        </StackPanel>
+        <Grid x:Name="gridSoftver" Grid.Column="0" Grid.Row="3" Margin="10,10,0,0" 
+              DataContext="{Binding Path=SelectedSoftver}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -29,8 +73,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition MinWidth="50" />
+                <ColumnDefinition MinWidth="50" />
+                <ColumnDefinition MinWidth="50" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0">Oznaka:</TextBlock>
             <TextBlock Grid.Column="0" Grid.Row="1">Naziv:</TextBlock>
@@ -48,8 +93,25 @@
             <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Sajt}"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=GodinaIzdavanja}"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=Cijena}"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=OperativniSistem}"></TextBox>
+            <ComboBox Grid.Column="1" Grid.Row="6" 
+                      ItemsSource="{Binding Source={StaticResource enumValues}}"
+                      SelectedItem="{Binding Path=OperativniSistem}"></ComboBox>
             <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=Opis}"></TextBox>
+
+            <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <Button x:Name="SacuvajSoftver" Click="SacuvajSoftver_Click" Content="Dodaj softver">
+                </Button>
+                <Button x:Name="SacuvajIzmjenu" Margin="10,0,0,0" Click="SacuvajIzmjenu_Click" Content="Sacuvaj">
+                </Button>
+                <Button x:Name="IzmjenaOdustani"
+                        Margin="10,0,0,0"
+                        Click="IzmjenaOdustani_Click"
+                        Content="Odustani">
+                </Button>
+                <Button x:Name="Odustani" Margin="10,0,0,0" Click="Odustani_Click" Content="Odustani">
+                </Button>
+
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

@@ -27,6 +27,11 @@ namespace hciProjekat
         public MainWindow()
         {
             InitializeComponent();
+            SoftverPage.getInstance();
+            SmjeroviPage.getInstance();
+            PredmetiPage.getInstance();
+            UcionicePage.getInstance();
+            
         }
         
         private void Button1_Click(object sender, RoutedEventArgs e)

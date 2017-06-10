@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,16 @@ namespace hciProjekat.Model
             {
                 id = value;
             }
+        }
+
+        public static void sacuvajSmjerove(List<Smjer> smjerovi)
+        {
+            StreamWriter f = new StreamWriter(@".\..\..\files\smjerovi.txt");
+            foreach (Smjer s in smjerovi)
+            {
+                f.WriteLine(s.Id + "|" + s.Opis + "|" + s.Naziv + "|" + s.DatumUvodjenja);
+            }
+            f.Close();
         }
 
         public static ObservableCollection<Smjer> ucitajSmjerove()

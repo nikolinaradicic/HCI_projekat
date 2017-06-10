@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ namespace hciProjekat.Model
 {
     public enum OS { widows, linux, svejedno };
 
-    public class Predmet: INotifyPropertyChanged
+    public class Predmet
     {
         private string id;
         private string naziv;
@@ -25,13 +25,23 @@ namespace hciProjekat.Model
         private OS neophodanOS;
         private Softver neophodanSoftver;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string name)
+        public Predmet() { }
+
+        public Predmet(string id, string naziv, string opis, int velicinaGrupe, int duzinaTermina, int brojTermina, bool projektor,
+            bool tabla, bool pametnaTabla, Smjer smjer, OS neophodanOS, Softver neophodanSoftver)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
+            this.id = id;
+            this.naziv = naziv;
+            this.opis = opis;
+            this.velicinaGrupe = velicinaGrupe;
+            this.minDuzinaTermina = duzinaTermina;
+            this.brojTermina = brojTermina;
+            this.projektor = projektor;
+            this.tabla = tabla;
+            this.pametnaTabla = pametnaTabla;
+            this.smjer = smjer;
+            this.neophodanOS = neophodanOS;
+            this.neophodanSoftver = neophodanSoftver;
         }
 
         public string Id
@@ -70,6 +80,18 @@ namespace hciProjekat.Model
             }
         }
 
+        public Softver NeophodanSoftver
+        {
+            get
+            {
+                return neophodanSoftver;
+            }
+            set
+            {
+                neophodanSoftver = value;
+            }
+        }
+
         public static ObservableCollection<Predmet> ucitajPredmete()
         {
             ObservableCollection<Predmet> predmeti = new ObservableCollection<Predmet>();
@@ -98,7 +120,7 @@ namespace hciProjekat.Model
                 p.smjer = pronadjen;
                 p.neophodanOS = (OS)Convert.ToInt32(param[10]);
                 List<Softver> softveri = SoftverPage.getInstance().Softveri.ToList();
-                Softver pronadjen_s = softveri.Find(s => s.Id.Equals(param[10]));
+                Softver pronadjen_s = softveri.Find(s => s.Id.Equals(param[11]));
                 p.neophodanSoftver = pronadjen_s;
                 predmeti.Add(p);
             }
@@ -206,6 +228,16 @@ namespace hciProjekat.Model
             }
         }
 
+        internal static void sacuvajPredmete(List<Predmet> list)
+        {
 
+            StreamWriter f = new StreamWriter(@".\..\..\files\predmeti.txt");
+            foreach (Predmet s in list)
+            {
+                f.WriteLine(s.Id + "|" + s.Naziv + "|" + s.Opis + "|" + s.VelicinaGrupe + "|" + s.MinDuzinaTermina + "|" + s.BrojTermina + "|"
+                    + s.Projektor + "|" + s.Tabla + "|" + s.PametnaTabla + "|" + s.Smjer.Id + "|"  + (int) s.NeophodanOS + "|" + s.NeophodanSoftver.Id);
+            }
+            f.Close();
+        }
     }
 }
