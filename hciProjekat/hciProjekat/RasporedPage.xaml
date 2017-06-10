@@ -10,20 +10,59 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition />
-            <RowDefinition Height="14*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MaxWidth="1000" />
         </Grid.ColumnDefinitions>
+        <ListView x:Name="odabranP" Grid.Row="0" ItemsSource="{Binding Predmeti}" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="Naziv Predmeta: " />
+                        <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                        <TextBlock Text=" Sifra predmeta: " />
+                        <TextBlock Text="{Binding Id}" FontWeight="Bold" />
+                        <Button Content="Confirm" Click="Button_Click"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
+        <ListView  Grid.Row="1" x:Name="prikazUcionica" Visibility="Hidden" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove" RenderTransformOrigin="0.5,1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="Ucionica Broj: " />
+                        <TextBlock Text="{Binding Id}" FontWeight="Bold" />
+                        <Button Content="Confirm" Click="Button_Click_1"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Row="2" x:Name="prikazTermina" Visibility="Hidden" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="Termin: " />
+                        <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                        <Button Content="Confirm" Click="Button_Click_2"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <ScrollViewer
                 Grid.Row="0"
                 Grid.Column="1"
-                VerticalScrollBarVisibility="Visible" Grid.RowSpan="2">
+                VerticalScrollBarVisibility="Visible" Grid.RowSpan="4">
             <Grid x:Name="glavniGrid">
             </Grid>
         </ScrollViewer>
+    <Button x:Name="dugme" Grid.Row="3" Content="Obrisi Termin" Click="Button_Click_3" Visibility="Hidden"/>
     </Grid>
 </Page>

@@ -1,0 +1,2 @@
+1|naziv predmeta|opis predmeta|18|4|12|true|true|true|1|0|s2
+2|naziv predmeta|opis predmeta|18|4|12|true|true|true|1|1|s2
