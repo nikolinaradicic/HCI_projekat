@@ -28,6 +28,11 @@ namespace hciProjekat
         Ucionica ucionica = new Ucionica();
         Predmet odabranPredmet = new Predmet();
 
+        //private bool fromList = false;
+        //private bool fromListTemp = false;
+        //private int from_r = 0;
+        //private int from_c = 0;
+
         private RasporedPage()
         {
             InitializeComponent();
@@ -299,7 +304,7 @@ namespace hciProjekat
 
             prikazTermina.ItemsSource = Predmeti1;
             prikazTermina.Visibility = Visibility.Visible;
-            dugme.Visibility = Visibility.Visible;
+            //dugme.Visibility = Visibility.Visible;
             MessageBox.Show("ok");
         }
 
@@ -309,7 +314,7 @@ namespace hciProjekat
             predmeti.Add(odabranPredmet);
             Predmeti1 = new ObservableCollection<Predmet>(predmeti);
             prikazTermina.ItemsSource = Predmeti1;
-            dugme.Visibility = Visibility.Visible;
+           // dugme.Visibility = Visibility.Visible;
             MessageBox.Show("ok");
         }
 
@@ -321,6 +326,14 @@ namespace hciProjekat
             Predmet p=(Predmet)prikazTermina.SelectedItem;
             MessageBox.Show(" + "+p);
         }
+
+        //private void ListView_PreviewMouseLeftButtonDown3(object sender, MouseButtonEventArgs e)
+        //{
+        //    startPoint = e.GetPosition(null);
+
+        //    fromListTemp = true;
+        //}
+
     }
 
 
