@@ -1,0 +1,2 @@
+a|a|50|True|True|True|0|
+b|b|100|True|False|True|0|
