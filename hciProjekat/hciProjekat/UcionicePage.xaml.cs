@@ -262,5 +262,11 @@ namespace hciProjekat
             }
 
         }
+
+        private void Izaberi_Click(object sender, RoutedEventArgs e)
+        {
+            IzborViseSoftvera izbor = new IzborViseSoftvera(SelectedUcionica.InstaliraniSoftver);
+            izbor.Show();
+        }
     }
 }

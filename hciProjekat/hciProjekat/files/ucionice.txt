@@ -1,0 +1,1 @@
+ucionica|opis ucionice|35|True|True|True|2|g,s33

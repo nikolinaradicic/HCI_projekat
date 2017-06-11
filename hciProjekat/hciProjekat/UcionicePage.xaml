@@ -30,9 +30,41 @@
         </Grid.ColumnDefinitions>
         <DataGrid Grid.Column="0" x:Name="dgrUcionice" Margin="0,65,445,0" MinWidth="200" MinHeight="50"
                   HorizontalAlignment="Right" VerticalAlignment="Top" IsReadOnly="True"
+                  AutoGenerateColumns="False"
                   ItemsSource="{Binding Path=Ucionice}"
                   IsEnabled="{Binding RezimPregled}"
-                  SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="355"/>
+                  SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="355">
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    Header="Oznaka"
+                    Width="Auto"
+                    Binding="{Binding Id}" />
+                <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Opis}"
+                        Header="Opis" />
+                <DataGridTextColumn
+                     Width="Auto"
+                     Header="Broj mesta"
+                     Binding="{Binding BrojMjesta}" />
+                <DataGridTextColumn
+                     Width="Auto"
+                     Header="Instaliran OS"
+                     Binding="{Binding InstaliranOS}" />
+                <DataGridCheckBoxColumn
+                    Width="Auto"
+                    Header="Tabla"
+                    Binding="{Binding Tabla}"/>
+                <DataGridCheckBoxColumn
+                    Width="Auto"
+                    Header="Projektor"
+                    Binding="{Binding Projektor}"/>
+                <DataGridCheckBoxColumn
+                    Width="Auto"
+                    Header="Pametna tabla"
+                    Binding="{Binding PametnaTabla}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Margin="5,180,-5,0" Grid.Column="0" 
                     Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi" Width="80" Foreground="White">
@@ -124,11 +156,7 @@
             <ComboBox Grid.Column="1" Grid.Row="6" 
                       ItemsSource="{Binding Source={StaticResource enumValues}}"
                       SelectedItem="{Binding Path=InstaliranOS}"></ComboBox>
-
-            <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=InstaliraniSoftver}"></TextBox>
-
-            <StackPanel Grid.Row="8" Grid.Column="2" 
-                        Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20"/>
+            <Button x:Name="Izaberi" Grid.Column="1" Grid.Row="7" Click="Izaberi_Click" Content="Izaberi"></Button>
             <Button x:Name="SacuvajUcionicu" Click="SacuvajUcionicu_Click" Height="35" VerticalAlignment="Bottom" Margin="0,0,0,70" Grid.Row="8" HorizontalAlignment="Left" Width="80" Foreground="White" Grid.Column="1">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

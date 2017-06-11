@@ -61,6 +61,9 @@
     <Compile Include="IzborSoftvera.xaml.cs">
       <DependentUpon>IzborSoftvera.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IzborViseSoftvera.xaml.cs">
+      <DependentUpon>IzborViseSoftvera.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Komande\Komande.cs" />
     <Compile Include="Model\ModelovanRaspored.cs" />
     <Compile Include="Model\Raspored.cs" />
@@ -85,6 +88,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="IzborSoftvera.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IzborViseSoftvera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
