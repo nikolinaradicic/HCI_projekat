@@ -20,7 +20,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition MaxWidth="1000" />
         </Grid.ColumnDefinitions>
-        <ListView x:Name="odabranP" Grid.Row="0" ItemsSource="{Binding Predmeti}" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
+        <ListView x:Name="odabranP" Grid.Row="0" ItemsSource="{Binding Predmeti}" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove" Grid.ColumnSpan="2" Margin="0,0,205,0" Height="67" VerticalAlignment="Top">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -34,7 +34,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <ListView  Grid.Row="1" x:Name="prikazUcionica" Visibility="Hidden" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove" RenderTransformOrigin="0.5,1">
+        <ListView  Grid.Row="1" x:Name="prikazUcionica" Visibility="Hidden" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove" RenderTransformOrigin="0.5,1" Grid.ColumnSpan="2" Margin="0,0,205,0">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
@@ -57,12 +57,10 @@
             </ListView.ItemTemplate>
         </ListView>
         <ScrollViewer
-                Grid.Row="0"
                 Grid.Column="1"
-                VerticalScrollBarVisibility="Visible" Grid.RowSpan="4">
+                VerticalScrollBarVisibility="Visible" Grid.RowSpan="4" Height="190" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="217" Margin="79,0,0,47">
             <Grid x:Name="glavniGrid">
             </Grid>
         </ScrollViewer>
-    <Button x:Name="dugme" Grid.Row="3" Content="Obrisi Termin" Click="Button_Click_3" Visibility="Hidden"/>
     </Grid>
 </Page>

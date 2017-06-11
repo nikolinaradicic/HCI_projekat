@@ -32,7 +32,14 @@
                   HorizontalAlignment="Right" VerticalAlignment="Top" IsReadOnly="True"
                   ItemsSource="{Binding Path=Ucionice}"
                   IsEnabled="{Binding RezimPregled}"
-                  SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="355"/>
+                  SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="355" Foreground="#FF196C70">
+            <DataGrid.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                </LinearGradientBrush>
+            </DataGrid.BorderBrush>
+        </DataGrid>
         <StackPanel Margin="5,180,-5,0" Grid.Column="0" 
                     Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi" Width="80" Foreground="White">
