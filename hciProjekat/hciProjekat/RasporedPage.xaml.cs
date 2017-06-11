@@ -79,6 +79,7 @@ namespace hciProjekat
             {
                 DataGridCell cell = new DataGridCell();
                 cell.Content = Termini1[j].VremeTermina;
+                cell.Foreground = Brushes.White;
                 Grid.SetRow(cell, j);
                 Grid.SetColumn(cell, 0);
 
@@ -90,6 +91,8 @@ namespace hciProjekat
             for (int i = 1; i < 7; i++) {
                 DataGridCell cell = new DataGridCell();
                 cell.Content = niz[i];
+                cell.Foreground = Brushes.White;
+                cell.FontWeight = FontWeights.Bold;
                 Grid.SetRow(cell, 0);
                 Grid.SetColumn(cell, i);
                 
@@ -102,6 +105,7 @@ namespace hciProjekat
                 {
                     ListView list = new ListView();
                     list.ItemsSource = Termini[i][j];
+                    list.Background = Brushes.White;
                     list.AllowDrop = true;
                     list.DragEnter+= ListView_DragEnter;
                     list.Drop += ListView_Drop;
