@@ -7,8 +7,8 @@
       xmlns:cmd="clr-namespace:hciProjekat.Komande"
       xmlns:en="clr-namespace:hciProjekat.Model"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      mc:Ignorable="d"       Width="800"
+      Height="600"
       Title="UcionicePage">
     <Page.Resources>
         <ObjectDataProvider x:Key="enumValues"
@@ -28,43 +28,91 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Column="0" Grid.Row="0" x:Name="dgrUcionice" Margin="10,10,0,0" MinWidth="200" MinHeight="200"
-                  HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True"
+        <DataGrid Grid.Column="0" x:Name="dgrUcionice" Margin="0,65,445,0" MinWidth="200" MinHeight="50"
+                  HorizontalAlignment="Right" VerticalAlignment="Top" IsReadOnly="True"
                   ItemsSource="{Binding Path=Ucionice}"
                   IsEnabled="{Binding RezimPregled}"
-                  SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <StackPanel Margin="0,10,0,0" Grid.Column="0" Grid.Row="1" 
+                  SelectedItem="{Binding Path=SelectedUcionica, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="355"/>
+        <StackPanel Margin="5,180,-5,0" Grid.Column="0" 
                     Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi"></Button>
-            <Button Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Margin="10,0,0,0" Command="cmd:Komande.Izmijeni"></Button>
-            <Button Content="Obrisi" IsEnabled="{Binding EnableIzbrisi}" Margin="10,0,0,0" Click="Obrisi_Click"></Button>
+            <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi" Width="80" Foreground="White">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+            </Button>
+            <Button Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Width="80" Margin="10,0,0,0" Command="cmd:Komande.Izmijeni" Foreground="White">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button Width="85" IsEnabled="{Binding EnableIzbrisi}" Margin="10,0,0,0" Click="Obrisi_Click" Foreground="White">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Grid Height="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Icons/eraser.png" Margin="-26,0,9,0"/>
+                    <TextBlock Text="Obrisi" RenderTransformOrigin="-0.269,0.714" Width="61" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,0,-25,0"/>
+                </Grid>
+            </Button>
         </StackPanel>
-        <Grid x:Name="gridUcionice" Grid.Column="0" Grid.Row="2" Margin="0,10,0,0" DataContext="{Binding Path=SelectedUcionica}">
+        <Grid x:Name="gridUcionice" Grid.Column="0" DataContext="{Binding Path=SelectedUcionica}" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Width="800" Margin="0,255,0,-81" Grid.RowSpan="4">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" MinHeight="30"/>
-                <RowDefinition Height="Auto" MinHeight="30"/>
-                <RowDefinition Height="Auto" MinHeight="30"/>
-                <RowDefinition Height="Auto" MinHeight="30"/>
+                <RowDefinition Height="Auto" MinHeight="21"/>
+                <RowDefinition Height="Auto" MinHeight="19"/>
+                <RowDefinition Height="Auto" MinHeight="23"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
 
-                <RowDefinition Height="Auto" MinHeight="30"/>
-                <RowDefinition Height="Auto" MinHeight="30"/>
-                <RowDefinition Height="Auto" MinHeight="30"/>
-                <RowDefinition Height="Auto" MinHeight="30"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="20"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="25"/>
+                <RowDefinition Height="Auto" MinHeight="115"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition MinWidth="100" Width="Auto"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0">Oznaka:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="1">Opis:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="2">Broj mjesta:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3">Projektor:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="4">Tabla:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="5">Pametna tabla:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="6">Operativni sistem:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="7">Instalirani softver:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" Foreground="White" FontWeight="Bold">Oznaka:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Foreground="White" FontWeight="Bold">Opis:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Foreground="White" FontWeight="Bold">Broj mjesta:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" Foreground="White" FontWeight="Bold">Projektor:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" Foreground="White" FontWeight="Bold">Tabla:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5" Foreground="White" FontWeight="Bold">Pametna tabla:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="6" Foreground="White" FontWeight="Bold">Operativni sistem:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="7" Foreground="White" FontWeight="Bold">Instalirani softver:</TextBlock>
 
 
             <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Id}"></TextBox>
@@ -80,20 +128,102 @@
             <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=InstaliraniSoftver}"></TextBox>
 
             <StackPanel Grid.Row="8" Grid.Column="2" 
-                        Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                <Button x:Name="SacuvajUcionicu" Click="SacuvajUcionicu_Click" Content="Dodaj predmet">
-                </Button>
-                <Button x:Name="SacuvajIzmjenu" Margin="10,0,0,0" Click="SacuvajIzmjenu_Click" Content="Sacuvaj">
-                </Button>
-                <Button x:Name="IzmjenaOdustani"
-                        Margin="10,0,0,0"
-                        Click="IzmjenaOdustani_Click"
-                        Content="Odustani">
-                </Button>
-                <Button x:Name="Odustani" Margin="10,0,0,0" Click="Odustani_Click" Content="Odustani">
-                </Button>
-
-            </StackPanel>
+                        Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20"/>
+            <Button x:Name="SacuvajUcionicu" Click="SacuvajUcionicu_Click" Height="35" VerticalAlignment="Bottom" Margin="0,0,0,70" Grid.Row="8" HorizontalAlignment="Left" Width="80" Foreground="White" Grid.Column="1">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Grid Height="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Icons/more.png" Margin="-26,0,9,0"/>
+                    <TextBlock Text="Dodaj" RenderTransformOrigin="-0.269,0.714" Width="61" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,0,-25,0"/>
+                </Grid>
+            </Button>
+            <Button x:Name="SacuvajIzmjenu" Margin="0,0,20,70" Click="SacuvajIzmjenu_Click" Height="35" VerticalAlignment="Bottom" Grid.Row="8" Foreground="White" Grid.Column="1">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Grid Height="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Icons/save.png" Margin="-26,0,9,0"/>
+                    <TextBlock Text="Sacuvaj" RenderTransformOrigin="-0.269,0.714" Width="61" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,0,-25,0"/>
+                </Grid>
+            </Button>
+            <Button x:Name="IzmjenaOdustani"
+                        Margin="0,0,480,70"
+                        Click="IzmjenaOdustani_Click" Grid.Column="1" Grid.Row="8" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="82" Foreground="White" Grid.ColumnSpan="2">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Grid Height="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Icons/icon.png" Margin="-26,0,9,0"/>
+                    <TextBlock Text="Odustani" RenderTransformOrigin="-0.269,0.714" Width="61" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,0,-25,0"/>
+                </Grid>
+            </Button>
+            <Button x:Name="Odustani" Margin="90,10,478,70" Click="Odustani_Click" Grid.Column="1" Grid.Row="8" Foreground="White" Grid.ColumnSpan="2">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Grid Height="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Icons/icon.png" Margin="-26,0,9,0"/>
+                    <TextBlock Text="Odustani" RenderTransformOrigin="-0.269,0.714" Width="61" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,0,-25,0"/>
+                </Grid>
+            </Button>
         </Grid>
+        <Label Content="Ucionice" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#FF252525" Foreground="CadetBlue" FontWeight="Bold" FontSize="36" FontStyle="Italic" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.544,-1.138" Margin="-5,-33,0,267"/>
     </Grid>
 </Page>

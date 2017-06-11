@@ -172,7 +172,7 @@ namespace hciProjekat.Model
             StreamWriter f = new StreamWriter(@".\..\..\files\ucionice.txt");
             foreach (Ucionica s in list)
             {
-                string line = s.Id + "|" + "|" + s.Opis + "|" + s.BrojMjesta + "|" + s.Projektor + "|" + s.Tabla + "|"
+                string line = s.Id + "|" + s.Opis + "|" + (int)s.BrojMjesta + "|" + s.Projektor + "|" + s.Tabla + "|"
                       + s.PametnaTabla + "|" + (int)s.InstaliranOS + "|";
                 for(int i = 0; i < s.InstaliraniSoftver.Count; i++)
                 {

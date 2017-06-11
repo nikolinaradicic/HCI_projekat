@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:hciProjekat"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1500"
-         WindowStartupLocation="CenterScreen" WindowState="Maximized">
+         WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FF252525">
     <Window.CommandBindings>
         <CommandBinding
             CanExecute="DodajSoftver_CanExecute"
@@ -46,10 +46,14 @@
 
     <Grid Name="pnlMainGrid">
         <Grid Background="Black" Margin="0,2,0,581">
-            <TextBlock RenderTransformOrigin="-6.3,-4.088" Margin="70,6,-86,16" FontSize="30"><Run Foreground="CadetBlue" FontWeight="Medium" Text=".:"/><Run Foreground="White" FontWeight="Medium" Text="OURS"/><Run Foreground="CadetBlue" FontWeight="Medium" Text=":."/></TextBlock>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="29*"/>
+                <RowDefinition Height="64*"/>
+            </Grid.RowDefinitions>
+            <TextBlock RenderTransformOrigin="-6.3,-4.088" Margin="5,6,-86,16" FontSize="50" Grid.RowSpan="2"><Run Foreground="CadetBlue" FontWeight="Medium" Text=".:"/><Run Foreground="White" FontWeight="Medium" Text="OURS"/><Run Foreground="CadetBlue" FontWeight="Medium" Text=":."/></TextBlock>
         </Grid>
         <StackPanel Orientation="Horizontal" Height="48" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,76,0,0" RenderTransformOrigin="0.5,0.5">
-            <Button ContextMenuService.IsEnabled="False" Content="Prikaz" Click="Button1_Click" Width="275" Cursor="Hand" Foreground="White" OpacityMask="#FF0F0808" AutomationProperties.IsRowHeader="True">
+            <Button ContextMenuService.IsEnabled="False" Content="Prikaz" Click="Button1_Click" Width="275" Cursor="Hand" Foreground="White" OpacityMask="#FF0F0808" AutomationProperties.IsRowHeader="True" FontWeight="Bold" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
                 <Button.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -99,7 +103,7 @@
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
-            <Button Content="Definisanje Termina" Click="Button2_Click" Width="361" Cursor="Hand" Foreground="White">
+            <Button Content="Definisanje Termina" Click="Button2_Click" Width="300" Cursor="Hand" Foreground="White" FontSize="17" FontWeight="Bold">
                 <Button.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -114,8 +118,7 @@
                 </Button.Background>
             </Button>
         </StackPanel>
-        <Frame x:Name="MainFrame" Margin="39,179,4,0" NavigationUIVisibility="Hidden" RenderTransformOrigin="0.468,0.501">
-
-        </Frame>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" RenderTransformOrigin="0.105,0.453" Margin="5,185,7,-1"  Width="800"
+      Height="600"/>
     </Grid>
 </Window>

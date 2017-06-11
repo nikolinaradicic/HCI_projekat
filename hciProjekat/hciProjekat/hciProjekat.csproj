@@ -162,7 +162,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Stylesheet1.css" />
+    <Resource Include="Icons\icon.png" />
+    <Resource Include="Icons\save.png" />
+    <Resource Include="Icons\add.png" />
+    <Resource Include="Icons\eraser.png" />
+    <Resource Include="Icons\more.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

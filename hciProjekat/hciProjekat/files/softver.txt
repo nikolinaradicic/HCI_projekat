@@ -1,4 +1,4 @@
-s1|naz|2000|opis|p|sajt|1|1994
 s2|naz|2000|opis|p|sajt|1|1994
 novi|bla|0|ovo je opis|ppp|sajt|0|1000
 g|g|0|ooo|g|g|0|0
+s33|s3|20000|opis|s3|s3|0|2000
