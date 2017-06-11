@@ -158,7 +158,12 @@ namespace hciProjekat.Model
             }
             set
             {
-                naziv = value;
+                if (naziv != value)
+                {
+
+                    naziv = value;
+                    OnPropertyChanged("Naziv");
+                }
             }
         }
         

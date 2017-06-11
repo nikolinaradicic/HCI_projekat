@@ -1,1 +1,2 @@
-ucionica|opis ucionice|35|True|True|True|2|g,s33
+ucionica|opis ucionice|35|True|True|True|1|s2,g,s33
+||0|False|False|False|2|s2,novi,g,s33

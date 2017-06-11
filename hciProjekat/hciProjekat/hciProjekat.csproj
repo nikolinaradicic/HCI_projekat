@@ -68,6 +68,7 @@
     <Compile Include="Model\ModelovanRaspored.cs" />
     <Compile Include="Model\Raspored.cs" />
     <Compile Include="Model\Termin.cs" />
+    <Compile Include="Model\UcionicaRaspored.cs" />
     <Compile Include="PredmetiPage.xaml.cs">
       <DependentUpon>PredmetiPage.xaml</DependentUpon>
     </Compile>

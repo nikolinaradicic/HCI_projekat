@@ -25,27 +25,6 @@ namespace hciProjekat.Model
             }
         }
 
-        //public static ObservableCollection<Termin> ucitajVreme()
-        //{
-        //    ObservableCollection<Termin> termini = new ObservableCollection<Termin>();
-
-        //    string[] lines = System.IO.File.ReadAllLines(@".\..\..\files\termini.txt");
-
-        //    foreach (string ss in lines)
-        //    {
-        //        Termin t = new Termin();
-        //        string[] tokens = ss.Split(' ');
-        //        if (ss == "")
-        //            return termini;
-        //        t.vremeTermina = tokens[0];
-        //        termini.Add(t);
-        //    }
-
-        //    return termini;
-
-        //}
-
-
         public static ObservableCollection<Termin> ucitajTermine()
         {
             ObservableCollection<Termin> termini = new ObservableCollection<Termin>();

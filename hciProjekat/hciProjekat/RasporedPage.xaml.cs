@@ -27,6 +27,8 @@ namespace hciProjekat
         Termin termin = new Termin();
         Ucionica ucionica = new Ucionica();
         Predmet odabranPredmet = new Predmet();
+        List<UcionicaRaspored> ucionicaRaspored = new List<UcionicaRaspored>();
+
 
         //private bool fromList = false;
         //private bool fromListTemp = false;
@@ -40,6 +42,11 @@ namespace hciProjekat
 
             Ucionice = UcionicePage.getInstance().Ucionice;
             List<Predmet> listaPredmeta = new List<Predmet>();
+            Termini = new List<List<ObservableCollection<Predmet>>>();
+
+            foreach (Ucionica u in Ucionice) {
+                ucionicaRaspored.Add(new UcionicaRaspored { Ucionica = u});
+            }
 
             Predmeti = PredmetiPage.getInstance().Predmeti;
 
@@ -49,15 +56,8 @@ namespace hciProjekat
                 termini.Add(new Termin { VremeTermina = t.VremeTermina });
             }
             Termini2 = new ObservableCollection<Termin>(termini);
-            Termini = new List<List<ObservableCollection<Predmet>>>();
-            for (int i = 0; i < 61; i++)
-            {
-                List<ObservableCollection<Predmet>> temp = new List<ObservableCollection<Predmet>>();
-                for (int j = 0; j < 7; j++) {
-                    temp.Add(new ObservableCollection<Predmet>());
-                }
-                Termini.Add(temp);
-            }
+
+
             Termini3 = new List<List<ObservableCollection<Predmet>>>(Termini);
 
             for (int j = 0; j < 7; j++)
@@ -98,25 +98,6 @@ namespace hciProjekat
                 
                 glavniGrid.Children.Add(cell);
             }
-
-            for (int i = 1; i < 61; i++)
-            {
-                for (int j = 1; j < 7; j++)
-                {
-                    ListView list = new ListView();
-                    list.ItemsSource = Termini[i][j];
-                    list.Background = Brushes.White;
-                    list.AllowDrop = true;
-                    list.DragEnter+= ListView_DragEnter;
-                    list.Drop += ListView_Drop;
-                    list.MouseMove += ListView_MouseMove;
-                    list.PreviewMouseLeftButtonDown += ListView_PreviewMouseLeftButtonDown;
-                    Grid.SetRow(list, i);
-                    Grid.SetColumn(list, j);
-                    glavniGrid.Children.Add(list);
-                }
-            }
-
         }
 
         private static RasporedPage instance;
@@ -199,6 +180,9 @@ namespace hciProjekat
                 ListView listView = sender as ListView;
                 ListViewItem listViewItem =
                     FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
+                if (listViewItem == null) {
+                    return;
+                }
 
                 // Find the data behind the ListViewItem
                 Predmet p = (Predmet)listView.ItemContainerGenerator.
@@ -243,7 +227,10 @@ namespace hciProjekat
                 Predmet t = e.Data.GetData("myFormat") as Predmet;
                 //MessageBox.Show("DUZINA "+t.MinDuzinaTermina);
                 //Predmeti1.Remove(student);
-                if (Termini[row][column].Count==1)
+
+                ucionica = (Ucionica)prikazUcionica.SelectedItem;
+                UcionicaRaspored ucionica_rasp= ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(ucionica.Id));
+                if (ucionica_rasp.OdrzavaniPredmeti[row][column].Count!=0)
                 {
                     MessageBox.Show("Popunjen termin");
                     return;
@@ -255,14 +242,12 @@ namespace hciProjekat
                 }
                 var end = 0;
                 for (int i = 0; i < t.MinDuzinaTermina; i++) {
-                    Termini[row+end][column].Add(t);
-                    Termini[row + 1+end][column].Add(t);
-                    Termini[row + 2+end][column].Add(t);
+                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].Add(t);
+                    ucionica_rasp.OdrzavaniPredmeti[row + 1+end][column].Add(t);
+                    ucionica_rasp.OdrzavaniPredmeti[row + 2+end][column].Add(t);
                     var j = i+1;
                     end = 3*j;
                 }
-                
-                //raspored.Termini.Add(t);
             }
         }
 
@@ -276,20 +261,22 @@ namespace hciProjekat
             odabranPredmet = (Predmet)odabranP.SelectedItem;
             List<Ucionica> ucioniceTemp = new List<Ucionica>();
             foreach (Ucionica u in Ucionice) {
-                if ((odabranPredmet.NeophodanOS == u.InstaliranOS)){
+                if ((odabranPredmet.NeophodanOS == u.InstaliranOS) || (odabranPredmet.NeophodanOS == OS.svejedno) || (u.InstaliranOS == OS.svejedno))
+                {
                     List<Softver> softveri = u.InstaliraniSoftver;
-                    foreach (Softver s in softveri) {
-                        if (odabranPredmet.NeophodanSoftver.Equals(s)) {
+                    foreach (Softver s in softveri)
+                    {
+                        if (odabranPredmet.NeophodanSoftver.Equals(s))
+                        {
                             ucioniceTemp.Add(u);
                         }
                     }
                 }
             }
-            //MessageBox.Show(" ucionice " + ucioniceTemp.Count());
             Ucionice1 = new ObservableCollection<Ucionica>(ucioniceTemp);
             prikazUcionica.ItemsSource = Ucionice1;
+            Label_odabir_ucionice.Visibility = Visibility.Visible;
             prikazUcionica.Visibility = Visibility.Visible;
-            prikazTermina.Visibility = Visibility.Hidden;
 
         }
 
@@ -301,15 +288,13 @@ namespace hciProjekat
                 return;
             }
             ucionica =(Ucionica) prikazUcionica.SelectedItem;
-
+            Inicijalizuj_Termine(ucionica);
             List<Predmet> predmeti = new List<Predmet>();
             predmeti.Add(odabranPredmet);
             Predmeti1 = new ObservableCollection<Predmet>(predmeti);
-
             prikazTermina.ItemsSource = Predmeti1;
             prikazTermina.Visibility = Visibility.Visible;
-            //dugme.Visibility = Visibility.Visible;
-            MessageBox.Show("ok");
+            Label_odabir_termina.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -318,8 +303,7 @@ namespace hciProjekat
             predmeti.Add(odabranPredmet);
             Predmeti1 = new ObservableCollection<Predmet>(predmeti);
             prikazTermina.ItemsSource = Predmeti1;
-           // dugme.Visibility = Visibility.Visible;
-            MessageBox.Show("ok");
+            Obrisi.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -337,6 +321,36 @@ namespace hciProjekat
 
         //    fromListTemp = true;
         //}
+
+        private void Inicijalizuj_Termine(Ucionica u) {
+
+            UcionicaRaspored ucionica_rasp = ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(u.Id));
+
+            for (int i = 1; i < 61; i++)
+            {
+                for (int j = 1; j < 7; j++)
+                {
+                    ListView list = new ListView();
+                    list.ItemsSource = ucionica_rasp.OdrzavaniPredmeti[i][j];
+                    //WrapPanel panel = new WrapPanel();
+                    //TextBlock text = new TextBlock();
+                    //text.Text = "{Binding Naziv}";
+                    //panel.Children.Add(text);
+                    //DataTemplate dataTemp = new DataTemplate(panel);
+                    //list.ItemTemplate = dataTemp;
+
+                    list.Background = Brushes.White;
+                    list.AllowDrop = true;
+                    list.DragEnter += ListView_DragEnter;
+                    list.Drop += ListView_Drop;
+                    list.MouseMove += ListView_MouseMove;
+                    list.PreviewMouseLeftButtonDown += ListView_PreviewMouseLeftButtonDown;
+                    Grid.SetRow(list, i);
+                    Grid.SetColumn(list, j);
+                    glavniGrid.Children.Add(list);
+                }
+            }
+        }
 
     }
 
