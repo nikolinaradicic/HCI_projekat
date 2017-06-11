@@ -264,5 +264,17 @@ namespace hciProjekat
             }
 
         }
+
+        private void IzaberiButton_Click(object sender, RoutedEventArgs e)
+        {
+            IzborSmjera izborSmjera = new IzborSmjera(SmjeroviPage.getInstance().Smjerovi, SelectedPredmet.Smjer);
+            izborSmjera.Show();
+        }
+
+        private void IzaberiSoftver_Click(object sender, RoutedEventArgs e)
+        {
+            IzborSoftvera izborSoftvera = new IzborSoftvera(SoftverPage.getInstance().Softveri, SelectedPredmet.NeophodanSoftver);
+            izborSoftvera.Show();
+        }
     }
 }

@@ -18,10 +18,19 @@ using System.Windows.Shapes;
 namespace hciProjekat
 {
     /// <summary>
-    /// Interaction logic for IzborSoftvera.xaml
+    /// Interaction logic for IzborSmjera.xaml
     /// </summary>
-    public partial class IzborSoftvera : Window, INotifyPropertyChanged
+    public partial class IzborSmjera : Window, INotifyPropertyChanged
     {
+        
+        public IzborSmjera(ObservableCollection<Smjer> smjerovi, Smjer smjer)
+        {
+            Smjerovi = smjerovi;
+            this.DataContext = this;
+            this.SelectedSmjer = smjer;
+            InitializeComponent();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string info)
         {
@@ -31,42 +40,32 @@ namespace hciProjekat
             }
         }
 
-        public IzborSoftvera(ObservableCollection<Softver> softveri, Softver neophodanSoftver)
-        {
-            this.SelectedSoftver = neophodanSoftver;
-            this.Softveri = softveri;
-            this.DataContext = this;
-            InitializeComponent();
-        }
-
-        private Softver selectedSoftver;
-
-        public Softver SelectedSoftver
+        private Smjer selectedSmjer;
+        public Smjer SelectedSmjer
         {
             get
             {
-                return selectedSoftver;
+                return selectedSmjer;
             }
             set
             {
-                if (selectedSoftver != value)
+                if (selectedSmjer != value)
                 {
-                    selectedSoftver = value;
-                    OnPropertyChanged("SelectedSoftver");
+                    selectedSmjer = value;
+                    OnPropertyChanged("SelectedSmjer");
                 }
             }
         }
 
-        public ObservableCollection<Softver> Softveri
+        public ObservableCollection<Smjer> Smjerovi
         {
             get;
             set;
         }
 
-
         private void Izaberi_Click(object sender, RoutedEventArgs e)
         {
-            PredmetiPage.getInstance().SelectedPredmet.NeophodanSoftver = SelectedSoftver;
+            PredmetiPage.getInstance().SelectedPredmet.Smjer = SelectedSmjer;
             this.Close();
         }
     }

@@ -76,7 +76,12 @@ namespace hciProjekat.Model
             }
             set
             {
-                smjer = value;
+                if(smjer != value)
+                {
+
+                    smjer = value;
+                    OnPropertyChanged("Smjer");
+                }
             }
         }
 
@@ -100,7 +105,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                neophodanSoftver = value;
+                if(neophodanSoftver != value)
+                {
+                    neophodanSoftver = value;
+                    OnPropertyChanged("NeophodanSoftver");
+                }
             }
         }
 

@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="IzborSmjera.xaml.cs">
+      <DependentUpon>IzborSmjera.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IzborSoftvera.xaml.cs">
       <DependentUpon>IzborSoftvera.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
     <Compile Include="UcionicePage.xaml.cs">
       <DependentUpon>UcionicePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="IzborSmjera.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="IzborSoftvera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
