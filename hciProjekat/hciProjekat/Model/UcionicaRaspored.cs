@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace hciProjekat.Model
 {
+    [Serializable]
     class UcionicaRaspored
     {
         private Ucionica ucionica;

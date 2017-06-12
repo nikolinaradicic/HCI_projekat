@@ -11,8 +11,10 @@ namespace hciProjekat.Model
 {
     public enum OS { widows, linux, svejedno };
 
+    [Serializable]
     public class Predmet: INotifyPropertyChanged
     {
+        private int pomocni_broj_termina;
         private int pomocni_broj;
         private string id;
         private string naziv;
@@ -41,8 +43,9 @@ namespace hciProjekat.Model
         public Predmet() { }
 
         public Predmet(string id, string naziv, string opis, int velicinaGrupe, int duzinaTermina, int brojTermina, bool projektor,
-            bool tabla, bool pametnaTabla, Smjer smjer, OS neophodanOS, Softver neophodanSoftver)
+            bool tabla, bool pametnaTabla, Smjer smjer, OS neophodanOS, Softver neophodanSoftver, int pomocni_broj_termina)
         {
+            this.pomocni_broj_termina = pomocni_broj_termina;
             pomocni_broj = -1;
             this.id = id;
             this.naziv = naziv;
@@ -59,6 +62,7 @@ namespace hciProjekat.Model
         }
 
         public Predmet(Predmet p) {
+            pomocni_broj_termina = 1;
             pomocni_broj = -1;
             this.id = p.id;
             this.naziv = p.naziv;
@@ -83,6 +87,18 @@ namespace hciProjekat.Model
             set
             {
                 id = value;
+            }
+        }
+
+        public int PomocniBrojTermina
+        {
+            get
+            {
+                return pomocni_broj_termina;
+            }
+            set
+            {
+                pomocni_broj_termina= value;
             }
         }
 

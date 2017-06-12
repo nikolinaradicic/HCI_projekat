@@ -161,7 +161,7 @@ namespace hciProjekat
             SelectedPredmet = new Predmet(selectedPredmet.Id, SelectedPredmet.Naziv, selectedPredmet.Opis,
                 selectedPredmet.VelicinaGrupe, selectedPredmet.MinDuzinaTermina, selectedPredmet.BrojTermina,
                 selectedPredmet.Projektor, selectedPredmet.Tabla, selectedPredmet.PametnaTabla, selectedPredmet.Smjer,
-                selectedPredmet.NeophodanOS, selectedPredmet.NeophodanSoftver);
+                selectedPredmet.NeophodanOS, selectedPredmet.NeophodanSoftver,selectedPredmet.PomocniBrojTermina);
 
             gridPredmeti.IsEnabled = true;
             SacuvajIzmjenu.Visibility = Visibility.Visible;

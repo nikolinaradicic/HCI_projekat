@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,14 +32,9 @@ namespace hciProjekat
         ListView listView_pomocni = new ListView();
         Predmet predmet_pomocni = new Predmet();
 
-
-
-        //private bool fromList = false;
-        //private bool fromListTemp = false;
         private bool from_table = false;
         private int cell_row= 0;
         private int cell_column = 0;
-        private bool odradio = false;
 
         private RasporedPage()
         {
@@ -255,14 +251,9 @@ namespace hciProjekat
             if (e.Data.GetDataPresent("myFormat"))
             {
                 ListView listView = sender as ListView;
-                //minimalnu duzinu termina a ona je u predmetu*45
                 int row = Grid.GetRow(listView);
                 int column = Grid.GetColumn(listView);
                 Predmet t = e.Data.GetData("myFormat") as Predmet;
-                //MessageBox.Show("DUZINA "+t.MinDuzinaTermina);
-                //Predmeti1.Remove(student);
-
-
 
                 ucionica = (Ucionica)prikazUcionica.SelectedItem;
                 UcionicaRaspored ucionica_rasp= ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(ucionica.Id));
@@ -271,10 +262,22 @@ namespace hciProjekat
                 { 
                         for (int i = row; i < row + odabranPredmet.MinDuzinaTermina * 3; i++)
                         {
+
                             if (ucionica_rasp.OdrzavaniPredmeti[i][column].Count != 0)
                             {
-                                MessageBox.Show("Nedovoljni termina ili je tremin popunjen");
-                                return;
+                            if (!ucionica_rasp.OdrzavaniPredmeti[i][column].ElementAt(0).Equals(null)) {
+                                if (ucionica_rasp.OdrzavaniPredmeti[i][column].ElementAt(0).Equals(ucionica_rasp.OdrzavaniPredmeti[cell_row][cell_column].ElementAt(0)))
+                                {
+                                    break;
+                                    
+                                }
+                                else {
+                                    MessageBox.Show("Nedovoljni termina ili je tremin popunjen");
+                                    return;
+                                }
+                            }
+
+                                
                             }
                         }
                     if (ucionica_rasp.OdrzavaniPredmeti[cell_row][cell_column].ElementAt(0) == null) {
@@ -286,14 +289,9 @@ namespace hciProjekat
                     }
                     int razlika = pomocni_pr.PomocniBroj;
                     for (int i = cell_row; i < cell_row + odabranPredmet.MinDuzinaTermina * 3; i++) {
-                        // MessageBox.Show("OD REDA: " + cell_row + " OD KOLONE: " + cell_column);
-                        //Predmet pomocni_pr = ucionica_rasp.OdrzavaniPredmeti[i][cell_column].ElementAt(0);
-                        //MessageBox.Show("broj " + pomocni_pr.PomocniBroj);
-                            //razlika = pomocni_pr.PomocniBroj;
-                           // MessageBox.Show("razlika " + razlika);
+
                             ucionica_rasp.OdrzavaniPredmeti[razlika][cell_column].RemoveAt(0);
                             razlika++;
-                        //ucionica_rasp.OdrzavaniPredmeti[i][cell_column].RemoveAt(0);
                     }
                 }
 
@@ -302,20 +300,35 @@ namespace hciProjekat
                     return;
                 }
                 var end = 0;
+                Predmet p = new Predmet(t);
                 for (int i = 0; i < t.MinDuzinaTermina; i++) {
                    // t.PomocniBroj = row+end;
-                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].Add(new Predmet(t));
+                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].Add(p);
                     ucionica_rasp.OdrzavaniPredmeti[row + end][column].ElementAt(0).PomocniBroj=row;
                    // t.PomocniBroj = row + end+1;
-                    ucionica_rasp.OdrzavaniPredmeti[row + 1+end][column].Add(new Predmet(t));
+                    ucionica_rasp.OdrzavaniPredmeti[row + 1+end][column].Add(p);
 
                     ucionica_rasp.OdrzavaniPredmeti[row + end+1][column].ElementAt(0).PomocniBroj = row;
                     //t.PomocniBroj = row + end+2;
-                    ucionica_rasp.OdrzavaniPredmeti[row + 2+end][column].Add(new Predmet(t));
+                    ucionica_rasp.OdrzavaniPredmeti[row + 2+end][column].Add(p);
 
                     ucionica_rasp.OdrzavaniPredmeti[row + end+2][column].ElementAt(0).PomocniBroj = row;
                     var j = i+1;
                     end = 3*j;
+                }
+                if (!from_table) {
+                    odabranPredmet.PomocniBrojTermina++;
+                    if (odabranPredmet.PomocniBrojTermina == odabranPredmet.BrojTermina)
+                    {
+                        Predmeti1.Clear();
+                        prikazTermina.ItemsSource = Predmeti1;
+                        prikazTermina.Visibility = Visibility.Visible;
+                    }
+                }
+                else if (odabranPredmet.PomocniBrojTermina == odabranPredmet.BrojTermina) {
+                    Predmeti1.Clear();
+                    prikazTermina.ItemsSource = Predmeti1;
+                    prikazTermina.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -342,6 +355,11 @@ namespace hciProjekat
                     }
                 }
             }
+            if (odabranPredmet.PomocniBrojTermina == odabranPredmet.BrojTermina)
+            {
+                MessageBox.Show("Ne postoji vise potrebnih termina za odabrani predmet!");
+                return;
+            }
             Ucionice1 = new ObservableCollection<Ucionica>(ucioniceTemp);
             prikazUcionica.ItemsSource = Ucionice1;
             Label_odabir_ucionice.Visibility = Visibility.Visible;
@@ -356,6 +374,12 @@ namespace hciProjekat
                 MessageBox.Show("Potrebno je odabrati ucionicu.");
                 return;
             }
+            if (odabranPredmet.PomocniBrojTermina == odabranPredmet.BrojTermina)
+            {
+                MessageBox.Show("Ne postoji vise potrebnih termina za odabrani predmet!");
+                return;
+            }
+
             ucionica =(Ucionica) prikazUcionica.SelectedItem;
             Inicijalizuj_Termine(ucionica);
             List<Predmet> predmeti = new List<Predmet>();
@@ -377,10 +401,6 @@ namespace hciProjekat
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            //ListView listView = sender as ListView;
-            //int row = Grid.GetRow(listView);
-            //int column = Grid.GetColumn(listView);
-            // Predmet p=sender as Predmet;
             try
             {
                 ucionica = (Ucionica)prikazUcionica.SelectedItem;
@@ -393,25 +413,26 @@ namespace hciProjekat
                 int razlika = pomocni_pr.PomocniBroj;
                 for (int i = cell_row; i < cell_row + odabranPredmet.MinDuzinaTermina * 3; i++)
                 {
-                    // MessageBox.Show("OD REDA: " + cell_row + " OD KOLONE: " + cell_column);
-                    //Predmet pomocni_pr = ucionica_rasp.OdrzavaniPredmeti[i][cell_column].ElementAt(0);
-                    //MessageBox.Show("broj " + pomocni_pr.PomocniBroj);
-                    //razlika = pomocni_pr.PomocniBroj;
-                    // MessageBox.Show("razlika " + razlika);
                     ucionica_rasp.OdrzavaniPredmeti[razlika][cell_column].RemoveAt(0);
                     razlika++;
-                    //ucionica_rasp.OdrzavaniPredmeti[i][cell_column].RemoveAt(0);
                 }
+                if (from_table)
+                {
+                    odabranPredmet.PomocniBrojTermina--;
+                }
+
+                if (odabranPredmet.PomocniBrojTermina!=odabranPredmet.BrojTermina) {
+                    if (Predmeti1.Count() == 0) {
+                        Predmeti1.Add(odabranPredmet);
+                        prikazTermina.ItemsSource = Predmeti1;
+                        prikazTermina.Visibility = Visibility.Visible;
+                    }
+                }
+ 
+
             }
             catch { MessageBox.Show("Niste odabrali termin"); return; }
         }
-
-        //private void ListView_PreviewMouseLeftButtonDown3(object sender, MouseButtonEventArgs e)
-        //{
-        //    startPoint = e.GetPosition(null);
-
-        //    fromListTemp = true;
-        //}
 
         private void Inicijalizuj_Termine(Ucionica u) {
 
