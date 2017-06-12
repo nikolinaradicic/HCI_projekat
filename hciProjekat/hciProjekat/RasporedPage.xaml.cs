@@ -257,6 +257,12 @@ namespace hciProjekat
 
                 ucionica = (Ucionica)prikazUcionica.SelectedItem;
                 UcionicaRaspored ucionica_rasp= ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(ucionica.Id));
+                if (!from_table) {
+                    if (ucionica_rasp.OdrzavaniPredmeti[row][column].Count() != 0) {
+                        MessageBox.Show("Nedovoljni termina ili je tremin popunjen");
+                        return;
+                    }
+                }
 
                 if (from_table)
                 { 

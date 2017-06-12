@@ -1,1 +1,2 @@
 1|a|a|40|1|7|False|False|False|s1|2|novi
+2|2|2|40|1|5|False|False|False|s1|2|s2
