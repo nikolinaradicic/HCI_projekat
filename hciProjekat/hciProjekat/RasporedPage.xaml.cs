@@ -28,12 +28,17 @@ namespace hciProjekat
         Ucionica ucionica = new Ucionica();
         Predmet odabranPredmet = new Predmet();
         List<UcionicaRaspored> ucionicaRaspored = new List<UcionicaRaspored>();
+        ListView listView_pomocni = new ListView();
+        Predmet predmet_pomocni = new Predmet();
+
 
 
         //private bool fromList = false;
         //private bool fromListTemp = false;
-        //private int from_r = 0;
-        //private int from_c = 0;
+        private bool from_table = false;
+        private int cell_row= 0;
+        private int cell_column = 0;
+        private bool odradio = false;
 
         private RasporedPage()
         {
@@ -161,10 +166,30 @@ namespace hciProjekat
             set;
         }
 
-
+        private int broj = 0;
         private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            broj++;
             startPoint = e.GetPosition(null);
+            ListView listView = sender as ListView;
+            try
+            {
+               
+                predmet_pomocni = (Predmet)listView.SelectedItem;
+            }
+            catch {
+                //
+            }
+            //minimalnu duzinu termina a ona je u predmetu*45
+            cell_row = Grid.GetRow(listView);
+            cell_column = Grid.GetColumn(listView);
+            from_table = true;
+        }
+
+        private void ListView_PreviewMouseLeftButtonDown1(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(null);
+            from_table = false;
         }
 
         private void ListView_MouseMove(object sender, MouseEventArgs e)
@@ -185,12 +210,21 @@ namespace hciProjekat
                 }
 
                 // Find the data behind the ListViewItem
-                Predmet p = (Predmet)listView.ItemContainerGenerator.
+                try
+                {
+                    Predmet p = (Predmet)listView.ItemContainerGenerator.
                     ItemFromContainer(listViewItem);
 
-                // Initialize the drag & drop operation
-                DataObject dragData = new DataObject("myFormat", p);
-                DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
+                    // Initialize the drag & drop operation
+                    DataObject dragData = new DataObject("myFormat", p);
+                    DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
+                }
+                catch {
+                    return;
+                }
+
+
+          
             }
         }
 
@@ -228,12 +262,39 @@ namespace hciProjekat
                 //MessageBox.Show("DUZINA "+t.MinDuzinaTermina);
                 //Predmeti1.Remove(student);
 
+
+
                 ucionica = (Ucionica)prikazUcionica.SelectedItem;
                 UcionicaRaspored ucionica_rasp= ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(ucionica.Id));
-                if (ucionica_rasp.OdrzavaniPredmeti[row][column].Count!=0)
-                {
-                    MessageBox.Show("Popunjen termin");
-                    return;
+
+                if (from_table)
+                { 
+                        for (int i = row; i < row + odabranPredmet.MinDuzinaTermina * 3; i++)
+                        {
+                            if (ucionica_rasp.OdrzavaniPredmeti[i][column].Count != 0)
+                            {
+                                MessageBox.Show("Nedovoljni termina ili je tremin popunjen");
+                                return;
+                            }
+                        }
+                    if (ucionica_rasp.OdrzavaniPredmeti[cell_row][cell_column].ElementAt(0) == null) {
+                        return;
+                    }
+                    Predmet pomocni_pr = ucionica_rasp.OdrzavaniPredmeti[cell_row][cell_column].ElementAt(0);
+                    if (pomocni_pr.PomocniBroj.Equals(null)) {
+                        return;
+                    }
+                    int razlika = pomocni_pr.PomocniBroj;
+                    for (int i = cell_row; i < cell_row + odabranPredmet.MinDuzinaTermina * 3; i++) {
+                        // MessageBox.Show("OD REDA: " + cell_row + " OD KOLONE: " + cell_column);
+                        //Predmet pomocni_pr = ucionica_rasp.OdrzavaniPredmeti[i][cell_column].ElementAt(0);
+                        //MessageBox.Show("broj " + pomocni_pr.PomocniBroj);
+                            //razlika = pomocni_pr.PomocniBroj;
+                           // MessageBox.Show("razlika " + razlika);
+                            ucionica_rasp.OdrzavaniPredmeti[razlika][cell_column].RemoveAt(0);
+                            razlika++;
+                        //ucionica_rasp.OdrzavaniPredmeti[i][cell_column].RemoveAt(0);
+                    }
                 }
 
                 if (row + 3 * t.MinDuzinaTermina>61) {
@@ -242,9 +303,17 @@ namespace hciProjekat
                 }
                 var end = 0;
                 for (int i = 0; i < t.MinDuzinaTermina; i++) {
-                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].Add(t);
-                    ucionica_rasp.OdrzavaniPredmeti[row + 1+end][column].Add(t);
-                    ucionica_rasp.OdrzavaniPredmeti[row + 2+end][column].Add(t);
+                   // t.PomocniBroj = row+end;
+                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].Add(new Predmet(t));
+                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].ElementAt(0).PomocniBroj=row;
+                   // t.PomocniBroj = row + end+1;
+                    ucionica_rasp.OdrzavaniPredmeti[row + 1+end][column].Add(new Predmet(t));
+
+                    ucionica_rasp.OdrzavaniPredmeti[row + end+1][column].ElementAt(0).PomocniBroj = row;
+                    //t.PomocniBroj = row + end+2;
+                    ucionica_rasp.OdrzavaniPredmeti[row + 2+end][column].Add(new Predmet(t));
+
+                    ucionica_rasp.OdrzavaniPredmeti[row + end+2][column].ElementAt(0).PomocniBroj = row;
                     var j = i+1;
                     end = 3*j;
                 }
@@ -308,11 +377,33 @@ namespace hciProjekat
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            ListView listView = sender as ListView;
-            int row = Grid.GetRow(listView);
-            int column = Grid.GetColumn(listView);
-            Predmet p=(Predmet)prikazTermina.SelectedItem;
-            MessageBox.Show(" + "+p);
+            //ListView listView = sender as ListView;
+            //int row = Grid.GetRow(listView);
+            //int column = Grid.GetColumn(listView);
+            // Predmet p=sender as Predmet;
+            try
+            {
+                ucionica = (Ucionica)prikazUcionica.SelectedItem;
+                UcionicaRaspored ucionica_rasp = ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(ucionica.Id));
+                Predmet pomocni_pr = ucionica_rasp.OdrzavaniPredmeti[cell_row][cell_column].ElementAt(0);
+                if (pomocni_pr.PomocniBroj.Equals(null))
+                {
+                    return;
+                }
+                int razlika = pomocni_pr.PomocniBroj;
+                for (int i = cell_row; i < cell_row + odabranPredmet.MinDuzinaTermina * 3; i++)
+                {
+                    // MessageBox.Show("OD REDA: " + cell_row + " OD KOLONE: " + cell_column);
+                    //Predmet pomocni_pr = ucionica_rasp.OdrzavaniPredmeti[i][cell_column].ElementAt(0);
+                    //MessageBox.Show("broj " + pomocni_pr.PomocniBroj);
+                    //razlika = pomocni_pr.PomocniBroj;
+                    // MessageBox.Show("razlika " + razlika);
+                    ucionica_rasp.OdrzavaniPredmeti[razlika][cell_column].RemoveAt(0);
+                    razlika++;
+                    //ucionica_rasp.OdrzavaniPredmeti[i][cell_column].RemoveAt(0);
+                }
+            }
+            catch { MessageBox.Show("Niste odabrali termin"); return; }
         }
 
         //private void ListView_PreviewMouseLeftButtonDown3(object sender, MouseButtonEventArgs e)
@@ -344,7 +435,7 @@ namespace hciProjekat
                     factory.AppendChild(imgFactory);
 
                     list.ItemTemplate = template;
-
+                    list.Name = "ja";
                     list.Background = Brushes.White;
                     list.AllowDrop = true;
                     list.DragEnter += ListView_DragEnter;

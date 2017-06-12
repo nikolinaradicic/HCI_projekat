@@ -13,6 +13,7 @@ namespace hciProjekat.Model
 
     public class Predmet: INotifyPropertyChanged
     {
+        private int pomocni_broj;
         private string id;
         private string naziv;
         private string opis;
@@ -42,6 +43,7 @@ namespace hciProjekat.Model
         public Predmet(string id, string naziv, string opis, int velicinaGrupe, int duzinaTermina, int brojTermina, bool projektor,
             bool tabla, bool pametnaTabla, Smjer smjer, OS neophodanOS, Softver neophodanSoftver)
         {
+            pomocni_broj = -1;
             this.id = id;
             this.naziv = naziv;
             this.opis = opis;
@@ -54,6 +56,22 @@ namespace hciProjekat.Model
             this.smjer = smjer;
             this.neophodanOS = neophodanOS;
             this.neophodanSoftver = neophodanSoftver;
+        }
+
+        public Predmet(Predmet p) {
+            pomocni_broj = -1;
+            this.id = p.id;
+            this.naziv = p.naziv;
+            this.opis = p.opis;
+            this.velicinaGrupe = p.velicinaGrupe;
+            this.minDuzinaTermina = p.minDuzinaTermina;
+            this.brojTermina = p.brojTermina;
+            this.projektor = p.projektor;
+            this.tabla = p.tabla;
+            this.pametnaTabla = p.pametnaTabla;
+            this.smjer = p.smjer;
+            this.neophodanOS = p.neophodanOS;
+            this.neophodanSoftver = p.neophodanSoftver;
         }
 
         public string Id
@@ -96,6 +114,24 @@ namespace hciProjekat.Model
                 neophodanOS = value;
             }
         }
+
+        public int PomocniBroj
+        {
+            get
+            {
+                return pomocni_broj;
+            }
+            set
+            {
+                if (pomocni_broj != value)
+                {
+
+                    pomocni_broj = value;
+                    OnPropertyChanged("PomocniBroj");
+                }
+            }
+        }
+
 
         public Softver NeophodanSoftver
         {
