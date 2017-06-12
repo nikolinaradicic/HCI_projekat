@@ -1,1 +1,2 @@
 1|naziv|opis|20|2|3|True|False|False|4|2|s2
+1|1|11|20|2|2|True|False|False|jjj|1|s33

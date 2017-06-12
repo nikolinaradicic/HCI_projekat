@@ -332,12 +332,18 @@ namespace hciProjekat
                 {
                     ListView list = new ListView();
                     list.ItemsSource = ucionica_rasp.OdrzavaniPredmeti[i][j];
-                    //WrapPanel panel = new WrapPanel();
-                    //TextBlock text = new TextBlock();
-                    //text.Text = "{Binding Naziv}";
-                    //panel.Children.Add(text);
-                    //DataTemplate dataTemp = new DataTemplate(panel);
-                    //list.ItemTemplate = dataTemp;
+                    DataTemplate template = new DataTemplate();
+
+                    FrameworkElementFactory factory = new FrameworkElementFactory(typeof(ListView));
+                    template.VisualTree = factory;
+                    FrameworkElementFactory imgFactory = new FrameworkElementFactory(typeof(TextBlock));
+
+                    Binding newBinding = new Binding("Naziv");
+                    imgFactory.SetBinding(TextBlock.TextProperty, newBinding);
+
+                    factory.AppendChild(imgFactory);
+
+                    list.ItemTemplate = template;
 
                     list.Background = Brushes.White;
                     list.AllowDrop = true;
