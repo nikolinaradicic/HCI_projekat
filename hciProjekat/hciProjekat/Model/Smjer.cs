@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace hciProjekat.Model
 {
+    [Serializable]
     public class Smjer
     {
         private string id;

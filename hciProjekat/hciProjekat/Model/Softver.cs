@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace hciProjekat.Model
 {
+    [Serializable]
     public class Softver
     {
         private string id;
