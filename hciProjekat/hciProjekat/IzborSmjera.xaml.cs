@@ -68,5 +68,6 @@ namespace hciProjekat
             PredmetiPage.getInstance().SelectedPredmet.Smjer = SelectedSmjer;
             this.Close();
         }
+
     }
 }

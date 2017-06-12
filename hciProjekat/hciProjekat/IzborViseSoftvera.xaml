@@ -5,19 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:hciProjekat"
         mc:Ignorable="d"
-        Title="IzborViseSoftvera" Height="300" Width="300">
-    <Grid>
+        Title="IzborViseSoftvera" Height="300" Width="400">
+    <Grid Background="#FF252525">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="105*" />
+            <ColumnDefinition Width="41*" />
         </Grid.ColumnDefinitions>
 
         <DataGrid Grid.Column="0" Grid.Row="0" x:Name="dgrSoftveri" 
-                  Margin="0,55,0,0" Height="155" Width="440" MaxWidth="560"
+                  Margin="35,35,0,0" Height="155" Width="155" MaxWidth="560"
                   AutoGenerateColumns="False"
                   HorizontalAlignment="Left" VerticalAlignment="Top"
                   ItemsSource="{Binding Path=Softveri, Mode=TwoWay}" Foreground="#FF196C70">
@@ -46,7 +46,20 @@
                     />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Column="1" Grid.Row="1" x:Name="Potvrdi" Height="35" Width="75" Content="Potvrdi" Click="Potvrdi_Click"></Button>
+        <Button Grid.Row="1" x:Name="Potvrdi" Content="Potvrdi" Click="Potvrdi_Click" Margin="280,16,37,-48" Grid.ColumnSpan="2" Foreground="White">
+            <Button.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.BorderBrush>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
