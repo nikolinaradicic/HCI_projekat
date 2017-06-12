@@ -224,7 +224,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                velicinaGrupe = value;
+                if(velicinaGrupe != value)
+                {
+                    velicinaGrupe = value;
+                    OnPropertyChanged("VelicinaGrupe");
+                }
             }
         }
 
@@ -236,7 +240,11 @@ namespace hciProjekat.Model
             }
             set
             {
-               minDuzinaTermina = value;
+                if(minDuzinaTermina != value)
+                {
+                    minDuzinaTermina = value;
+                    OnPropertyChanged("MinDuzinaTermina");
+                }
             }
         }
 
@@ -248,7 +256,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                brojTermina = value;
+                if(brojTermina != value)
+                {
+                    brojTermina = value;
+                    OnPropertyChanged("BrojTermina");
+                }
             }
         }
 

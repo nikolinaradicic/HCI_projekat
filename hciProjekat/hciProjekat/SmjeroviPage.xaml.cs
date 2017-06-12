@@ -237,6 +237,13 @@ namespace hciProjekat
 
         private void Obrisi_Click(object sender, RoutedEventArgs e)
         {
+            List<Predmet> predmeti = PredmetiPage.getInstance().Predmeti.ToList();
+            Predmet pronadjen = predmeti.Find(p => p.Smjer.Equals(SelectedSmjer));
+            if(pronadjen != null)
+            {
+                MessageBox.Show("Nemoguce je obrisati smjer dok postoje predmeti koji mu pripadaju!");
+                return;
+            }
             Smjerovi.Remove(SelectedSmjer);
             if (Smjerovi.Count > 0)
             {

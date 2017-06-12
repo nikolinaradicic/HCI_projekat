@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace hciProjekat.Model
 {
-    public class Ucionica
+    public class Ucionica:INotifyPropertyChanged
     {
         private string id;
         private string opis;
@@ -18,6 +19,16 @@ namespace hciProjekat.Model
         private bool pametnaTabla;
         private List<Softver> instaliraniSoftver;
         private OS instaliranOS;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
 
         public List<Softver> InstaliraniSoftver
         {
@@ -127,7 +138,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                brojMjesta = value;
+                if(brojMjesta != value)
+                {
+                    brojMjesta = value;
+                    OnPropertyChanged("BrojMjesta");
+                }
             }
         }
 

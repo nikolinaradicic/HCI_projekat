@@ -81,6 +81,7 @@
     <Compile Include="SoftverPage.xaml.cs">
       <DependentUpon>SoftverPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StringToDobleValidationRule.cs" />
     <Compile Include="UcionicePage.xaml.cs">
       <DependentUpon>UcionicePage.xaml</DependentUpon>
     </Compile>

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:hciProjekat"
       xmlns:cmd="clr-namespace:hciProjekat.Komande"
+      xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       Width="800"
       Height="600"
@@ -117,7 +118,10 @@
             </TextBox>
             <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Naziv}" BorderBrush="#FF252525" Grid.ColumnSpan="2"></TextBox>
             <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Opis}" BorderBrush="#FF252525" Grid.ColumnSpan="2"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=DatumUvodjenja}" BorderBrush="#FF252525" Grid.ColumnSpan="2"></TextBox>
+            <DatePicker Grid.Column="1" Grid.Row="3"
+                HorizontalAlignment="Left"
+                SelectedDate="{Binding Path=DatumUvodjenja,Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}"
+                Width="120" />
             <StackPanel Grid.Row="4" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="0" Grid.ColumnSpan="3"/>
             <Button x:Name="SacuvajSmjer" Click="SacuvajSmjer_Click" Margin="129,0,110,2" Grid.ColumnSpan="2" Grid.Row="5" Foreground="White">
                 <Button.BorderBrush>

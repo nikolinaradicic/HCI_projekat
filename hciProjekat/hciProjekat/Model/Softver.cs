@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace hciProjekat.Model
 {
-    public class Softver
+    public class Softver:INotifyPropertyChanged
     {
         private string id;
         private string naziv;
@@ -103,7 +104,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                godinaIzdavanja = value;
+                if(godinaIzdavanja != value)
+                {
+                    godinaIzdavanja = value;
+                    OnPropertyChanged("GodinaIzdavanja");
+                }
             }
         }
 
@@ -115,6 +120,11 @@ namespace hciProjekat.Model
             }
             set
             {
+                if(cijena != value)
+                {
+                    cijena = value;
+                    OnPropertyChanged("Cijena");
+                }
                 cijena = value;
             }
         }
@@ -128,6 +138,15 @@ namespace hciProjekat.Model
             set
             {
                 opis = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
 

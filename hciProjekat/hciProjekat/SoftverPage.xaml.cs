@@ -242,6 +242,21 @@ namespace hciProjekat
 
         private void Obrisi_Click(object sender, RoutedEventArgs e)
         {
+            List<Predmet> predmeti = PredmetiPage.getInstance().Predmeti.ToList();
+            Predmet pronadjen = predmeti.Find(s => s.NeophodanSoftver.Equals(SelectedSoftver));
+            if(pronadjen != null)
+            {
+                MessageBox.Show("Nemoguce je obrisati softver dok postoje predmeti kojima je neophodan");
+                return;
+            }
+
+            List<Ucionica> ucionice = UcionicePage.getInstance().Ucionice.ToList();
+            Ucionica pronadjena = ucionice.Find(u => u.InstaliraniSoftver.Contains(SelectedSoftver));
+            if (pronadjena != null)
+            {
+                MessageBox.Show("Nemoguce je obrisati softver dok postoje ucionice u kojima instaliran");
+                return;
+            }
             Softveri.Remove(SelectedSoftver);
             if (Softveri.Count > 0)
             {
