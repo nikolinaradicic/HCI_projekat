@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace hciProjekat.Model
 {
+    [Serializable]
     public class Ucionica:INotifyPropertyChanged
     {
         private string id;
@@ -20,6 +21,7 @@ namespace hciProjekat.Model
         private List<Softver> instaliraniSoftver;
         private OS instaliranOS;
 
+        [field:NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string name)

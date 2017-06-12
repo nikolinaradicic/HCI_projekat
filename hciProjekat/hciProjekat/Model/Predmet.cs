@@ -29,6 +29,7 @@ namespace hciProjekat.Model
         private OS neophodanOS;
         private Softver neophodanSoftver;
 
+        [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string name)
@@ -195,6 +196,8 @@ namespace hciProjekat.Model
                 List<Softver> softveri = SoftverPage.getInstance().Softveri.ToList();
                 Softver pronadjen_s = softveri.Find(s => s.Id.Equals(param[11]));
                 p.neophodanSoftver = pronadjen_s;
+                p.PomocniBroj = Convert.ToInt32(param[12]);
+                p.PomocniBrojTermina = Convert.ToInt32(param[13]);
                 predmeti.Add(p);
             }
 
@@ -325,7 +328,8 @@ namespace hciProjekat.Model
             foreach (Predmet s in list)
             {
                 f.WriteLine(s.Id + "|" + s.Naziv + "|" + s.Opis + "|" + s.VelicinaGrupe + "|" + s.MinDuzinaTermina + "|" + s.BrojTermina + "|"
-                    + s.Projektor + "|" + s.Tabla + "|" + s.PametnaTabla + "|" + s.Smjer.Id + "|"  + (int) s.NeophodanOS + "|" + s.NeophodanSoftver.Id);
+                    + s.Projektor + "|" + s.Tabla + "|" + s.PametnaTabla + "|" + s.Smjer.Id + "|"  + (int) s.NeophodanOS + "|" + s.NeophodanSoftver.Id + "|"
+                    + s.PomocniBroj + "|" + s.PomocniBrojTermina);
             }
             f.Close();
         }

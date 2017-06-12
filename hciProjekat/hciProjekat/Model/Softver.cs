@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace hciProjekat.Model
 {
+    [Serializable]
     public class Softver:INotifyPropertyChanged
     {
         private string id;
@@ -141,6 +142,7 @@ namespace hciProjekat.Model
             }
         }
 
+        [field: NonSerializedAttribute()]
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string name)
         {

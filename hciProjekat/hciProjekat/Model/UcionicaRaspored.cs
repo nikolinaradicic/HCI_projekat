@@ -11,8 +11,10 @@ namespace hciProjekat.Model
     class UcionicaRaspored
     {
         private Ucionica ucionica;
+        
         private List<List<ObservableCollection<Predmet>>> odrzavaniPredmeti;
 
+        
         public UcionicaRaspored() {
             odrzavaniPredmeti = new List<List<ObservableCollection<Predmet>>>();
             for (int i = 0; i < 61; i++)

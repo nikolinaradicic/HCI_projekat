@@ -40,7 +40,7 @@ namespace hciProjekat
         {
             InitializeComponent();
             this.DataContext = this;
-
+            
             Ucionice = UcionicePage.getInstance().Ucionice;
             List<Predmet> listaPredmeta = new List<Predmet>();
             Termini = new List<List<ObservableCollection<Predmet>>>();
@@ -61,6 +61,7 @@ namespace hciProjekat
 
             Termini3 = new List<List<ObservableCollection<Predmet>>>(Termini);
 
+
             for (int j = 0; j < 7; j++)
             {
                 ColumnDefinition column = new ColumnDefinition();
@@ -76,7 +77,7 @@ namespace hciProjekat
                 }
             }
 
-            for (int j = 1; j <61 ; j++)
+            for (int j = 1; j < 61; j++)
             {
                 DataGridCell cell = new DataGridCell();
                 cell.Content = Termini1[j].VremeTermina;
@@ -84,19 +85,6 @@ namespace hciProjekat
                 Grid.SetRow(cell, j);
                 Grid.SetColumn(cell, 0);
 
-                glavniGrid.Children.Add(cell);
-            }
-
-            string[] niz = {"","Ponedeljak","Utorak","Sreda","Cetrvtak","Petak","Subota"};
-
-            for (int i = 1; i < 7; i++) {
-                DataGridCell cell = new DataGridCell();
-                cell.Content = niz[i];
-                cell.Foreground = Brushes.White;
-                cell.FontWeight = FontWeights.Bold;
-                Grid.SetRow(cell, 0);
-                Grid.SetColumn(cell, i);
-                
                 glavniGrid.Children.Add(cell);
             }
         }
@@ -442,6 +430,27 @@ namespace hciProjekat
 
         private void Inicijalizuj_Termine(Ucionica u) {
 
+            ////
+
+            string[] niz = { "", "Ponedeljak", "Utorak", "Sreda", "Cetrvtak", "Petak", "Subota" };
+
+            for (int i = 1; i < 7; i++)
+            {
+                DataGridCell cell = new DataGridCell();
+                cell.Content = niz[i];
+                cell.Foreground = Brushes.White;
+                cell.FontWeight = FontWeights.Bold;
+                Grid.SetRow(cell, 0);
+                Grid.SetColumn(cell, i);
+
+                glavniGrid.Children.Add(cell);
+            }
+
+
+            ////
+
+
+
             UcionicaRaspored ucionica_rasp = ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(u.Id));
 
             for (int i = 1; i < 61; i++)
@@ -476,6 +485,49 @@ namespace hciProjekat
             }
         }
 
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog openFileDialog = new Microsoft.Win32.SaveFileDialog();
+           
+            if (openFileDialog.ShowDialog() == true)
+            {
+
+            }
+            String filename = openFileDialog.FileName;
+            if(!filename.Equals(""))
+            {
+                
+                using (Stream stream = File.Open(filename, FileMode.Create))
+                {
+                    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                    binaryFormatter.Serialize(stream, ucionicaRaspored);
+                }
+            }
+            Predmet.sacuvajPredmete(PredmetiPage.getInstance().Predmeti.ToList());
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+
+            }
+            String filename = openFileDialog.FileName;
+            if (!filename.Equals(""))
+            {
+                using (Stream stream = File.Open(filename, FileMode.Open))
+                {
+                    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                    ucionicaRaspored =  (List<UcionicaRaspored>) binaryFormatter.Deserialize(stream);
+                }
+            }
+
+            List<Ucionica> sveUcionice = UcionicePage.getInstance().Ucionice.ToList();
+            List<Predmet> sviPredmeti = PredmetiPage.getInstance().Predmeti.ToList();
+            
+        }
     }
 
 

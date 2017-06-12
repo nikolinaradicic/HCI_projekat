@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace hciProjekat.Model
 {
     public class Raspored : INotifyPropertyChanged
     {
+     
+
         Dictionary<string, List<Termin>> termini;
 
         public Raspored() {
