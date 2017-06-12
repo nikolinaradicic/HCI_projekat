@@ -1,1 +1,1 @@
-predmet|n|opis|10|2|4|False|False|False|s2|2|g|0|4
+predmet|n|opis|10|2|11|False|False|False|s2|2|g|-1|11

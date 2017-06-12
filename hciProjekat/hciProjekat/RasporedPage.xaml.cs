@@ -40,7 +40,7 @@ namespace hciProjekat
         {
             InitializeComponent();
             this.DataContext = this;
-            
+
             Ucionice = UcionicePage.getInstance().Ucionice;
             List<Predmet> listaPredmeta = new List<Predmet>();
             Termini = new List<List<ObservableCollection<Predmet>>>();
@@ -57,7 +57,6 @@ namespace hciProjekat
                 termini.Add(new Termin { VremeTermina = t.VremeTermina });
             }
             Termini2 = new ObservableCollection<Termin>(termini);
-
 
             Termini3 = new List<List<ObservableCollection<Predmet>>>(Termini);
 
@@ -253,7 +252,10 @@ namespace hciProjekat
                 }
 
                 if (from_table)
-                { 
+                {
+                    if (!ucionica_rasp.Ucionica.Equals(ucionica)) {
+                        MessageBox.Show("Nisu iste ucionice");
+                    }
                         for (int i = row; i < row + odabranPredmet.MinDuzinaTermina * 3; i++)
                         {
 
@@ -358,6 +360,8 @@ namespace hciProjekat
             prikazUcionica.ItemsSource = Ucionice1;
             Label_odabir_ucionice.Visibility = Visibility.Visible;
             prikazUcionica.Visibility = Visibility.Visible;
+            confirm_ucionice.Visibility = Visibility.Visible;
+            confirm_ucionice_moj.Visibility = Visibility.Hidden;
 
         }
 
@@ -382,6 +386,12 @@ namespace hciProjekat
             prikazTermina.ItemsSource = Predmeti1;
             prikazTermina.Visibility = Visibility.Visible;
             Label_odabir_termina.Visibility = Visibility.Visible;
+            glavniGrid.Visibility = Visibility.Visible;
+            skroler.Visibility = Visibility.Visible;
+            glavniGrid.IsEnabled = true;
+            Obrisi.Visibility = Visibility.Visible;
+            button_ucitaj.Visibility = Visibility.Visible;
+            button_save.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -390,7 +400,6 @@ namespace hciProjekat
             predmeti.Add(odabranPredmet);
             Predmeti1 = new ObservableCollection<Predmet>(predmeti);
             prikazTermina.ItemsSource = Predmeti1;
-            Obrisi.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -448,9 +457,6 @@ namespace hciProjekat
 
 
             ////
-
-
-
             UcionicaRaspored ucionica_rasp = ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(u.Id));
 
             for (int i = 1; i < 61; i++)
@@ -526,7 +532,48 @@ namespace hciProjekat
 
             List<Ucionica> sveUcionice = UcionicePage.getInstance().Ucionice.ToList();
             List<Predmet> sviPredmeti = PredmetiPage.getInstance().Predmeti.ToList();
-            
+
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {//treba srediti ucionicu
+
+            prikazUcionica.Visibility = Visibility.Hidden;
+            prikazUcionica_Moj.Visibility = Visibility.Visible;
+            prikazTermina.Visibility = Visibility.Hidden;
+            button_save.Visibility = Visibility.Hidden;
+            Label_odabir_termina.Visibility = Visibility.Hidden;
+            Obrisi.Visibility = Visibility.Hidden;
+            confirm_ucionice_moj.Visibility = Visibility.Visible;
+            confirm_ucionice.Visibility = Visibility.Hidden;
+
+            skroler.Visibility = Visibility.Visible;
+            glavniGrid.Visibility = Visibility.Visible;
+
+            ucionica = (Ucionica)prikazUcionica_Moj.SelectedItem;
+            Inicijalizuj_Termine(ucionica);
+
+            confirm_ucionice_moj.Visibility = Visibility.Visible;
+
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            if (prikazUcionica_Moj.SelectedItem == null)
+            {
+                MessageBox.Show("Potrebno je odabrati ucionicu.");
+                return;
+            }
+
+            skroler.Visibility = Visibility.Visible;
+            glavniGrid.Visibility = Visibility.Visible;
+
+            ucionica = (Ucionica)prikazUcionica_Moj.SelectedItem;
+            Inicijalizuj_Termine(ucionica);
+
+            confirm_ucionice_moj.Visibility = Visibility.Visible;
+
+
         }
     }
 
