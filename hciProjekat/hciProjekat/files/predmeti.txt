@@ -1,3 +1,2 @@
-predmet|n|opis|10|2|4|False|False|False|s2|2|g|-1|4
-predmet1|predmet1|dfjd|10|10|5|True|True|False|s2|0|g|0|0
-sc|wdkwod|lckc|10|2|2|False|True|False|smjer|1|s2|0|0
+predmet|n|opis|10|2|20|False|False|False|s2|2|g|-1|20
+u|u|u|40|2|70|True|True|True|s2|0|s2|0|7

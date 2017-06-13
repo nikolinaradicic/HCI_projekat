@@ -1,1 +1,2 @@
 ozn|opis|30|True|True|True|0|s2,g
+uki|uki|40|True|True|True|0|s2,g

@@ -32,6 +32,8 @@ namespace hciProjekat
         ListView listView_pomocni = new ListView();
         Predmet predmet_pomocni = new Predmet();
 
+        Ucionica selected_ucionica = new Ucionica();
+
         private bool from_table = false;
         private int cell_row= 0;
         private int cell_column = 0;
@@ -40,7 +42,7 @@ namespace hciProjekat
         {
             InitializeComponent();
             this.DataContext = this;
-            
+
             Ucionice = UcionicePage.getInstance().Ucionice;
             List<Predmet> listaPredmeta = new List<Predmet>();
             Termini = new List<List<ObservableCollection<Predmet>>>();
@@ -58,7 +60,6 @@ namespace hciProjekat
             }
             Termini2 = new ObservableCollection<Termin>(termini);
 
-
             Termini3 = new List<List<ObservableCollection<Predmet>>>(Termini);
 
 
@@ -74,6 +75,7 @@ namespace hciProjekat
                 {
                     RowDefinition row = new RowDefinition();
                     glavniGrid.RowDefinitions.Add(row);
+                    
                 }
             }
 
@@ -84,7 +86,8 @@ namespace hciProjekat
                 cell.Foreground = Brushes.White;
                 Grid.SetRow(cell, j);
                 Grid.SetColumn(cell, 0);
-
+                cell.Width = 50;
+                cell.Height = 25;
                 glavniGrid.Children.Add(cell);
             }
         }
@@ -243,17 +246,20 @@ namespace hciProjekat
                 int column = Grid.GetColumn(listView);
                 Predmet t = e.Data.GetData("myFormat") as Predmet;
 
-                ucionica = (Ucionica)prikazUcionica.SelectedItem;
                 UcionicaRaspored ucionica_rasp= ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(ucionica.Id));
                 if (!from_table) {
-                    if (ucionica_rasp.OdrzavaniPredmeti[row][column].Count() != 0) {
-                        MessageBox.Show("Nedovoljni termina ili je tremin popunjen");
-                        return;
+
+                    for (int i = row; i < row + odabranPredmet.MinDuzinaTermina * 3; i++) {
+                        if (ucionica_rasp.OdrzavaniPredmeti[i][column].Count() != 0)
+                        {
+                            MessageBox.Show("Nedovoljni termina ili je tremin popunjen");
+                            return;
+                        }                       
                     }
                 }
 
                 if (from_table)
-                { 
+                {
                         for (int i = row; i < row + odabranPredmet.MinDuzinaTermina * 3; i++)
                         {
 
@@ -293,23 +299,7 @@ namespace hciProjekat
                     MessageBox.Show("Prekoracili ste termin.");
                     return;
                 }
-                var end = 0;
-                Predmet p = new Predmet(t);
-                for (int i = 0; i < t.MinDuzinaTermina; i++) {
-                   // t.PomocniBroj = row+end;
-                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].Add(p);
-                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].ElementAt(0).PomocniBroj=row;
-                   // t.PomocniBroj = row + end+1;
-                    ucionica_rasp.OdrzavaniPredmeti[row + 1+end][column].Add(p);
-
-                    ucionica_rasp.OdrzavaniPredmeti[row + end+1][column].ElementAt(0).PomocniBroj = row;
-                    //t.PomocniBroj = row + end+2;
-                    ucionica_rasp.OdrzavaniPredmeti[row + 2+end][column].Add(p);
-
-                    ucionica_rasp.OdrzavaniPredmeti[row + end+2][column].ElementAt(0).PomocniBroj = row;
-                    var j = i+1;
-                    end = 3*j;
-                }
+               
                 if (!from_table) {
                     odabranPredmet.PomocniBrojTermina++;
                     if (odabranPredmet.PomocniBrojTermina == odabranPredmet.BrojTermina)
@@ -323,6 +313,26 @@ namespace hciProjekat
                     Predmeti1.Clear();
                     prikazTermina.ItemsSource = Predmeti1;
                     prikazTermina.Visibility = Visibility.Visible;
+                }
+
+
+                var end = 0;
+                Predmet p = new Predmet(t);
+                for (int i = 0; i < t.MinDuzinaTermina; i++)
+                {
+                    // t.PomocniBroj = row+end;
+                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].Add(p);
+                    ucionica_rasp.OdrzavaniPredmeti[row + end][column].ElementAt(0).PomocniBroj = row;
+                    // t.PomocniBroj = row + end+1;
+                    ucionica_rasp.OdrzavaniPredmeti[row + 1 + end][column].Add(p);
+
+                    ucionica_rasp.OdrzavaniPredmeti[row + end + 1][column].ElementAt(0).PomocniBroj = row;
+                    //t.PomocniBroj = row + end+2;
+                    ucionica_rasp.OdrzavaniPredmeti[row + 2 + end][column].Add(p);
+
+                    ucionica_rasp.OdrzavaniPredmeti[row + end + 2][column].ElementAt(0).PomocniBroj = row;
+                    var j = i + 1;
+                    end = 3 * j;
                 }
             }
         }
@@ -358,6 +368,8 @@ namespace hciProjekat
             prikazUcionica.ItemsSource = Ucionice1;
             Label_odabir_ucionice.Visibility = Visibility.Visible;
             prikazUcionica.Visibility = Visibility.Visible;
+            confirm_ucionice.Visibility = Visibility.Visible;
+            confirm_ucionice_moj.Visibility = Visibility.Hidden;
 
         }
 
@@ -374,7 +386,7 @@ namespace hciProjekat
                 return;
             }
 
-            ucionica =(Ucionica) prikazUcionica.SelectedItem;
+            ucionica=(Ucionica) prikazUcionica.SelectedItem;
             Inicijalizuj_Termine(ucionica);
             List<Predmet> predmeti = new List<Predmet>();
             predmeti.Add(odabranPredmet);
@@ -382,6 +394,11 @@ namespace hciProjekat
             prikazTermina.ItemsSource = Predmeti1;
             prikazTermina.Visibility = Visibility.Visible;
             Label_odabir_termina.Visibility = Visibility.Visible;
+            glavniGrid.Visibility = Visibility.Visible;
+            skroler.Visibility = Visibility.Visible;
+            glavniGrid.IsEnabled = true;
+            Obrisi.Visibility = Visibility.Visible;
+            button_save.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -390,14 +407,12 @@ namespace hciProjekat
             predmeti.Add(odabranPredmet);
             Predmeti1 = new ObservableCollection<Predmet>(predmeti);
             prikazTermina.ItemsSource = Predmeti1;
-            Obrisi.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             try
             {
-                ucionica = (Ucionica)prikazUcionica.SelectedItem;
                 UcionicaRaspored ucionica_rasp = ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(ucionica.Id));
                 Predmet pomocni_pr = ucionica_rasp.OdrzavaniPredmeti[cell_row][cell_column].ElementAt(0);
                 if (pomocni_pr.PomocniBroj.Equals(null))
@@ -448,9 +463,6 @@ namespace hciProjekat
 
 
             ////
-
-
-
             UcionicaRaspored ucionica_rasp = ucionicaRaspored.Find(s => s.Ucionica.Id.Equals(u.Id));
 
             for (int i = 1; i < 61; i++)
@@ -506,7 +518,7 @@ namespace hciProjekat
             Predmet.sacuvajPredmete(PredmetiPage.getInstance().Predmeti.ToList());
         }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        public void Ucitavanje_Metoda()
         {
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
 
@@ -526,6 +538,57 @@ namespace hciProjekat
 
             List<Ucionica> sveUcionice = UcionicePage.getInstance().Ucionice.ToList();
             List<Predmet> sviPredmeti = PredmetiPage.getInstance().Predmeti.ToList();
+
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {//treba srediti ucionicu
+
+            prikazUcionica.Visibility = Visibility.Hidden;
+            prikazUcionica_Moj.Visibility = Visibility.Visible;
+            prikazTermina.Visibility = Visibility.Hidden;
+            button_save.Visibility = Visibility.Hidden;
+            Label_odabir_termina.Visibility = Visibility.Hidden;
+            Obrisi.Visibility = Visibility.Hidden;
+            confirm_ucionice_moj.Visibility = Visibility.Visible;
+            confirm_ucionice.Visibility = Visibility.Hidden;
+
+            skroler.Visibility = Visibility.Visible;
+            glavniGrid.Visibility = Visibility.Visible;
+
+            ucionica = (Ucionica)prikazUcionica_Moj.SelectedItem;
+            Inicijalizuj_Termine(ucionica);
+
+            confirm_ucionice_moj.Visibility = Visibility.Visible;
+
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            if (prikazUcionica_Moj.SelectedItem == null)
+            {
+                MessageBox.Show("Potrebno je odabrati ucionicu.");
+                return;
+            }
+
+            skroler.Visibility = Visibility.Visible;
+            glavniGrid.Visibility = Visibility.Visible;
+
+            ucionica = (Ucionica)prikazUcionica_Moj.SelectedItem;
+            Inicijalizuj_Termine(ucionica);
+
+            confirm_ucionice_moj.Visibility = Visibility.Visible;
+
+
+        }
+
+        public void Novi_Metoda() {
+            Ucionice =UcionicePage.getInstance().Ucionice;
+            ucionicaRaspored.Clear();
+            foreach (Ucionica u in Ucionice)
+            {
+                ucionicaRaspored.Add(new UcionicaRaspored { Ucionica = u });
+            }
             
         }
     }
