@@ -67,7 +67,7 @@
         </DataGrid>
         <StackPanel Margin="5,180,-5,0" Grid.Column="0" 
                     Orientation="Horizontal" Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <Button x:Name="DodajButton" Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi" Width="80" Foreground="White">
+            <Button x:Name="DodajButton" Content="Dodaj" ToolTip="Ctrl+N" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi" Width="80" Foreground="White">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -81,7 +81,7 @@
                     </LinearGradientBrush>
                 </Button.BorderBrush>
             </Button>
-            <Button Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Width="80" Margin="10,0,0,0" Command="cmd:Komande.Izmijeni" Foreground="White">
+            <Button Content="Izmijeni" x:Name="IzmijeniButton" IsEnabled="{Binding EnableIzmijeni}" Width="80" Margin="10,0,0,0" Command="cmd:Komande.Izmijeni" Foreground="White">
                 <Button.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -95,7 +95,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Button Width="85" IsEnabled="{Binding EnableIzbrisi}" Margin="10,0,0,0" Click="Obrisi_Click" Foreground="White">
+            <Button Width="85" x:Name="ObrisiButton" IsEnabled="{Binding EnableIzbrisi}" Margin="10,0,0,0" Click="Obrisi_Click" Foreground="White">
                 <Button.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -178,7 +178,7 @@
             <CheckBox x:Name="projektorBox" Grid.Column="1" Grid.Row="3" IsChecked="{Binding Path=Projektor}"></CheckBox>
             <CheckBox x:Name="tablaBox" Grid.Column="1" Grid.Row="4" IsChecked="{Binding Path=Tabla}"></CheckBox>
             <CheckBox x:Name="pametnaTablaBox" Grid.Column="1" Grid.Row="5" IsChecked="{Binding Path=PametnaTabla}"></CheckBox>
-            <ComboBox Grid.Column="1" Grid.Row="6" 
+            <ComboBox x:Name="osCombo" Grid.Column="1" Grid.Row="6" 
                       ItemsSource="{Binding Source={StaticResource enumValues}}"
                       SelectedItem="{Binding Path=InstaliranOS}"></ComboBox>
             <Button x:Name="Izaberi" Grid.Column="1" Grid.Row="7" Click="Izaberi_Click" Content="Izaberi"></Button>

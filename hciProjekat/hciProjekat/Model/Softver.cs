@@ -44,7 +44,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                operativniSistem = value;
+                if (operativniSistem != value)
+                {
+                    operativniSistem = value;
+                    OnPropertyChanged("OperativniSistem");
+                }
             }
         }
 
@@ -56,7 +60,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                id = value;
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged("Id");
+                }
             }
         }
 
@@ -68,7 +76,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                naziv = value;
+                if (naziv != value)
+                {
+                    naziv = value;
+                    OnPropertyChanged("Naziv");
+                }
             }
         }
 
@@ -81,7 +93,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                proizvodjac = value;
+                if (proizvodjac != value)
+                {
+                    proizvodjac = value;
+                    OnPropertyChanged("Proizvodjac");
+                }
             }
         }
 
@@ -93,7 +109,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                sajt = value;
+                if (sajt != value)
+                {
+                    sajt = value;
+                    OnPropertyChanged("Sajt");
+                }
             }
         }
 
@@ -138,7 +158,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                opis = value;
+                if (opis != value)
+                {
+                    opis = value;
+                    OnPropertyChanged("Opis");
+                }
             }
         }
 

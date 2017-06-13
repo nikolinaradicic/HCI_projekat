@@ -63,6 +63,7 @@ namespace hciProjekat
     }
     public partial class IzborViseSoftvera : Window
     {
+
         public ObservableCollection<SoftverStavka> Softveri
         {
             get;
@@ -89,6 +90,20 @@ namespace hciProjekat
             InitializeComponent();
         }
 
+        public IzborViseSoftvera(string v)
+        {
+            Softveri = new ObservableCollection<SoftverStavka>();
+            Softver s1 = new Softver("softver1", "naziv1", "proizvodjac", "sajt", 2007, 20000, "",OS.svejedno);
+            Softver s2 = new Softver("softver1", "naziv1", "proizvodjac", "sajt", 2007, 20000, "",OS.svejedno);
+            SoftverStavka ss1 = new SoftverStavka(s1);
+            SoftverStavka ss2 = new SoftverStavka(s2);
+            ss1.Odabran = false;
+            ss2.Odabran = false;
+            Softveri.Add(ss1);
+            Softveri.Add(ss2);
+            this.DataContext = this;
+            InitializeComponent();
+        }
 
         private void Potvrdi_Click(object sender, RoutedEventArgs e)
         {

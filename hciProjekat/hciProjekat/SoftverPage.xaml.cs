@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -41,6 +42,359 @@ namespace hciProjekat
             SacuvajIzmjenu.Visibility = Visibility.Hidden;
             SacuvajSoftver.Visibility = Visibility.Hidden;
             IzmjenaOdustani.Visibility = Visibility.Hidden;
+        }
+
+        public SoftverPage(string v)
+        {
+            InitializeComponent();
+            this.DataContext = this;
+
+            List<Softver> u = new List<Softver>();
+            u.Add(new Softver("oznaka","naziv", "proizvodjac","www.sajt.com", 2014,10000, "opis", OS.svejedno));
+
+
+            Softveri = new ObservableCollection<Softver>(u);
+
+            DodajButton.IsEnabled = true;
+            if (Softveri.Count > 0)
+            {
+                SelectedSoftver = Softveri[0];
+
+                EnableIzbrisi = true;
+                EnableIzmijeni = true;
+            }
+            else
+            {
+                EnableIzbrisi = false;
+                EnableIzmijeni = false;
+            }
+
+            RezimPregled = true;
+            gridSoftver.IsEnabled = false;
+            Odustani.Visibility = Visibility.Hidden;
+            SacuvajIzmjenu.Visibility = Visibility.Hidden;
+            SacuvajSoftver.Visibility = Visibility.Hidden;
+            IzmjenaOdustani.Visibility = Visibility.Hidden;
+
+            demoThread = new Thread(new ThreadStart(pokaziDemo));
+            demoThread.Start();
+
+        }
+
+        private void pokaziDemo()
+        {
+            while (true)
+            {
+                Thread.Sleep(2000);
+                LinearGradientBrush old = new LinearGradientBrush();
+                
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    old = (LinearGradientBrush)DodajButton.Background;
+                    DodajButton.Background = Brushes.Red;
+
+                });
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    DodajButton.Background = old;
+
+                });
+
+                Thread.Sleep(200);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    gridSoftver.IsEnabled = true;
+                    DodajButton.IsEnabled = false;
+                    Odustani.Visibility = Visibility.Visible;
+                    SacuvajSoftver.Visibility = Visibility.Visible;
+                    SelectedSoftver = new Softver();
+
+                });
+                EnableIzmijeni = false;
+                EnableIzbrisi = false;
+                RezimPregled = false;
+
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    idBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.Id = "S";
+                Thread.Sleep(300);
+                SelectedSoftver.Id = "S1";
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    idBox.Background = Brushes.White;
+                });
+                Thread.Sleep(1000);
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    nazivBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.Naziv = "n";
+                Thread.Sleep(300);
+                SelectedSoftver.Naziv = "n1";
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    nazivBox.Background = Brushes.White;
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    proizvodjacBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.Proizvodjac = "p";
+                Thread.Sleep(300);
+                SelectedSoftver.Proizvodjac = "p1";
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    proizvodjacBox.Background = Brushes.White;
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    sajtBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.Sajt = "s";
+                Thread.Sleep(300);
+                SelectedSoftver.Sajt = "sa";
+                Thread.Sleep(300);
+                SelectedSoftver.Sajt = "saj";
+                Thread.Sleep(300);
+                SelectedSoftver.Sajt = "sajt";
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    sajtBox.Background = Brushes.White;
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    godinaBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.GodinaIzdavanja = 2;
+                Thread.Sleep(300);
+                SelectedSoftver.GodinaIzdavanja = 20;
+                Thread.Sleep(300);
+                SelectedSoftver.GodinaIzdavanja = 200;
+                Thread.Sleep(300);
+                SelectedSoftver.GodinaIzdavanja = 2009;
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    godinaBox.Background = Brushes.White;
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    cijenaBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.Cijena = 2;
+                Thread.Sleep(300);
+                SelectedSoftver.Cijena = 20;
+                Thread.Sleep(300);
+                SelectedSoftver.Cijena = 200;
+                Thread.Sleep(300);
+                SelectedSoftver.Cijena = 2000;
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    cijenaBox.Background = Brushes.White;
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    osBox.IsDropDownOpen = true;
+                });
+
+                Thread.Sleep(1000);
+                selectedSoftver.OperativniSistem = OS.linux;
+                Thread.Sleep(500);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+
+                    osBox.IsDropDownOpen = false;
+                });
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    opisBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.Opis = "o";
+                Thread.Sleep(300);
+                SelectedSoftver.Opis = "op";
+                Thread.Sleep(300);
+                SelectedSoftver.Opis = "opi";
+                Thread.Sleep(300);
+                SelectedSoftver.Opis = "opis";
+                Thread.Sleep(300);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    opisBox.Background = Brushes.White;
+                });
+                Thread.Sleep(1000);
+
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajSoftver.Background = Brushes.Red;
+
+                });
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajSoftver.Background = old;
+                });
+                Thread.Sleep(500);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+
+                    Softveri.Add(SelectedSoftver);
+                });
+                RezimPregled = true;
+                EnableIzbrisi = true;
+                EnableIzmijeni = true;
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajSoftver.Visibility = Visibility.Hidden;
+                    Odustani.Visibility = Visibility.Hidden;
+                    SacuvajIzmjenu.Visibility = Visibility.Hidden;
+                    IzmjenaOdustani.Visibility = Visibility.Hidden;
+                    DodajButton.IsEnabled = true;
+
+                });
+                Thread.Sleep(2000);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    IzmijeniButton.Background = Brushes.Red;
+
+                });
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    IzmijeniButton.Background = old;
+
+                });
+
+                Thread.Sleep(200);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    gridSoftver.IsEnabled = true;
+                    DodajButton.IsEnabled = false;
+                    IzmjenaOdustani.Visibility = Visibility.Visible;
+                    SacuvajIzmjenu.Visibility = Visibility.Visible;
+
+
+                });
+                EnableIzmijeni = false;
+                EnableIzbrisi = false;
+                RezimPregled = false;
+
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    opisBox.Background = Brushes.Red;
+                });
+                SelectedSoftver.Opis = "d";
+                Thread.Sleep(300);
+                SelectedSoftver.Opis = "dr";
+                Thread.Sleep(300);
+                SelectedSoftver.Opis = "dru";
+                Thread.Sleep(300);
+                SelectedSoftver.Opis = "drug";
+                Thread.Sleep(300);
+                SelectedSoftver.Opis = "drugi";
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    opisBox.Background = Brushes.White;
+                });
+                Thread.Sleep(1000);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajIzmjenu.Background = Brushes.Red;
+
+
+                });
+                Thread.Sleep(600);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajIzmjenu.Background = old;
+                });
+                Thread.Sleep(500);
+
+
+                RezimPregled = true;
+                EnableIzbrisi = true;
+                EnableIzmijeni = true;
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajSoftver.Visibility = Visibility.Hidden;
+                    Odustani.Visibility = Visibility.Hidden;
+                    SacuvajIzmjenu.Visibility = Visibility.Hidden;
+                    IzmjenaOdustani.Visibility = Visibility.Hidden;
+                    DodajButton.IsEnabled = true;
+
+                });
+                Thread.Sleep(2000);
+
+                //obrisi
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    IzbrisiButton.Background = Brushes.Red;
+
+                });
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    IzbrisiButton.Background = old;
+
+                });
+
+
+                Thread.Sleep(1000);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+
+                    Softveri.Remove(SelectedSoftver);
+                    if (Softveri.Count > 0)
+                    {
+                        SelectedSoftver = Softveri[0];
+                        var item = dgrSoftver.Items[0];
+                        dgrSoftver.SelectedItem = item;
+                        EnableIzmijeni = true;
+                        EnableIzbrisi = true;
+                    }
+                    else
+                    {
+                        SelectedSoftver = null;
+                        EnableIzmijeni = false;
+                        EnableIzbrisi = false;
+                    }
+                    RezimPregled = true;
+                });
+
+                Thread.Sleep(2000);
+            }
         }
 
         private int indexSelektovanog;
@@ -105,6 +459,9 @@ namespace hciProjekat
         }
 
         private bool enableIzmijeni;
+        
+        public Thread demoThread;
+
         public bool EnableIzmijeni
         {
             get

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -10,13 +11,24 @@ using System.Threading.Tasks;
 namespace hciProjekat.Model
 {
     [Serializable]
-    public class Smjer
+    public class Smjer:INotifyPropertyChanged
     {
         private string id;
         private string naziv;
         private string opis;
         private string datumUvodjenja;
-        
+
+        [field: NonSerializedAttribute()]
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
 
         public Smjer(){}
 
@@ -37,7 +49,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                id = value;
+                if(id != value)
+                {
+                    id = value;
+                    OnPropertyChanged("Id");
+                }
             }
         }
 
@@ -83,7 +99,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                naziv = value;
+                if(naziv != value)
+                {
+                    naziv = value;
+                    OnPropertyChanged("Naziv");
+                }
             }
         }
         public string DatumUvodjenja
@@ -94,19 +114,28 @@ namespace hciProjekat.Model
             }
             set
             {
-                datumUvodjenja = value;
+                if(datumUvodjenja != value)
+                {
+                    datumUvodjenja = value;
+                    OnPropertyChanged("DatumUvodjenja");
+                }
             }
         }
 
         public string Opis
         {
             get
+
             {
                 return opis;
             }
             set
             {
-                opis = value;
+                if(opis != value)
+                {
+                    opis = value;
+                    OnPropertyChanged("Opis");
+                }
             }
         }
     }

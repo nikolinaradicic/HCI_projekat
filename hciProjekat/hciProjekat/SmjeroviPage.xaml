@@ -38,7 +38,7 @@
         </DataGrid>
         <StackPanel Margin="0,14,0,0" Grid.Column="0" Grid.Row="1" 
                     Orientation="Horizontal" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.RowSpan="2">
-            <Button Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi" Width="80" BorderBrush="#FF36BDC3" Foreground="White" Height="35" VerticalAlignment="Bottom" Margin="0,-4,0,0">
+            <Button x:Name="DodajButton" Content="Dodaj" IsEnabled="{Binding RezimPregled}" Command="cmd:Komande.Novi" Width="80" BorderBrush="#FF36BDC3" Foreground="White" Height="35" VerticalAlignment="Bottom" Margin="0,-4,0,0">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -46,7 +46,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Button Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Margin="10,-4,0,0" Command="cmd:Komande.Izmijeni" Width="80" Foreground="White">
+            <Button x:Name="IzmijeniButton" Content="Izmijeni" IsEnabled="{Binding EnableIzmijeni}" Margin="10,-4,0,0" Command="cmd:Komande.Izmijeni" Width="80" Foreground="White">
                 <Button.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -60,7 +60,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Button IsEnabled="{Binding EnableIzbrisi}" Margin="10,-4,0,0" Click="Obrisi_Click" Width="85" Foreground="White">
+            <Button x:Name="ObrisiButton" IsEnabled="{Binding EnableIzbrisi}" Margin="10,-4,0,0" Click="Obrisi_Click" Width="85" Foreground="White">
                 <Button.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -108,7 +108,7 @@
             <TextBlock Grid.Column="0" Grid.Row="3" Foreground="White" FontWeight="Bold">Datum uvodjenja:</TextBlock>
 
 
-            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Id}" Grid.ColumnSpan="2" Height="31" VerticalAlignment="Top">
+            <TextBox x:Name="idBox" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Id}" Grid.ColumnSpan="2" Height="31" VerticalAlignment="Top">
                 <TextBox.BorderBrush>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
@@ -116,9 +116,9 @@
                     </LinearGradientBrush>
                 </TextBox.BorderBrush>
             </TextBox>
-            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Naziv}" BorderBrush="#FF252525" Grid.ColumnSpan="2"></TextBox>
-            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Opis}" BorderBrush="#FF252525" Grid.ColumnSpan="2"></TextBox>
-            <DatePicker Grid.Column="1" Grid.Row="3"
+            <TextBox x:Name="nazivBox" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Naziv}" BorderBrush="#FF252525" Grid.ColumnSpan="2"></TextBox>
+            <TextBox x:Name="opisBox" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Opis}" BorderBrush="#FF252525" Grid.ColumnSpan="2"></TextBox>
+            <DatePicker x:Name="dateBox" Grid.Column="1" Grid.Row="3"
                 HorizontalAlignment="Left"
                 SelectedDate="{Binding Path=DatumUvodjenja,Mode=TwoWay,TargetNullValue={x:Static System:DateTime.Now}}"
                 Width="120" />

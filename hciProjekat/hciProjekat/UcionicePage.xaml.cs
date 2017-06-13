@@ -24,7 +24,7 @@ namespace hciProjekat
     /// </summary>
     public partial class UcionicePage : Page, INotifyPropertyChanged
     {
-        private Thread demoThread;
+        public Thread demoThread;
         private UcionicePage()
         {
             InitializeComponent();
@@ -87,6 +87,8 @@ namespace hciProjekat
             {
                 Thread.Sleep(2000);
                 LinearGradientBrush old = new LinearGradientBrush();
+
+                IzborViseSoftvera izbor = null;
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     old = (LinearGradientBrush) DodajButton.Background;
@@ -104,7 +106,7 @@ namespace hciProjekat
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     gridUcionice.IsEnabled = true;
-
+                    DodajButton.IsEnabled = false;
                     Odustani.Visibility = Visibility.Visible;
                     SacuvajUcionicu.Visibility = Visibility.Visible;
                     SelectedUcionica = new Ucionica();
@@ -118,7 +120,7 @@ namespace hciProjekat
                 Thread.Sleep(1000);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    idBox.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    idBox.Background = Brushes.Red;
                 });
                 SelectedUcionica.Id = "U";
                 Thread.Sleep(300);
@@ -126,12 +128,12 @@ namespace hciProjekat
                 Thread.Sleep(1000);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    idBox.BorderBrush = new SolidColorBrush(Colors.Silver);
+                    idBox.Background = Brushes.White;
                 });
                 Thread.Sleep(200);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    opisBox.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    opisBox.Background = Brushes.Red;
                 });
                 SelectedUcionica.Opis = "o";
                 Thread.Sleep(300);
@@ -141,14 +143,14 @@ namespace hciProjekat
                 Thread.Sleep(300);
                 SelectedUcionica.Opis = "opis";
                 Thread.Sleep(1000);
-                App.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
+                App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    opisBox.BorderBrush = new SolidColorBrush(Colors.Silver);
+                    opisBox.Background = Brushes.White;
                 });
                 Thread.Sleep(200);
                 App.Current.Dispatcher.Invoke((Action)delegate // <--- HERE
                 {
-                    brojMjestaBox.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    brojMjestaBox.Background = Brushes.Red;
                 });
                 Thread.Sleep(300);
                 SelectedUcionica.BrojMjesta = 1;
@@ -157,28 +159,80 @@ namespace hciProjekat
                 Thread.Sleep(300);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    brojMjestaBox.BorderBrush = new SolidColorBrush(Colors.Silver);
+                    brojMjestaBox.Background = Brushes.White;
                 });
                 Thread.Sleep(1000);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    projektorBox.BorderBrush = new SolidColorBrush(Colors.CadetBlue);
+                    projektorBox.Background = Brushes.Red;
                 });
 
                 Thread.Sleep(500);
                 SelectedUcionica.Projektor = true;
                 App.Current.Dispatcher.Invoke((Action)delegate{
-                    projektorBox.BorderBrush = new SolidColorBrush(Colors.Silver);
+                    projektorBox.Background = Brushes.White;
                 });
                 Thread.Sleep(1000);
 
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    osCombo.IsDropDownOpen = true;
+                });
+
+                
+                Thread.Sleep(1000);
+                selectedUcionica.InstaliranOS = OS.linux;
+                Thread.Sleep(500);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    
+                    osCombo.IsDropDownOpen = false;
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    Izaberi.Background = Brushes.Red;
+                });
+
+                
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+
+                    izbor = new IzborViseSoftvera("demo");
+                    izbor.Show();
+                });
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    izbor.Softveri[0].Odabran = true;
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    izbor.Potvrdi.Background = Brushes.Red;
+                    
+                });
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    izbor.Close();
+
+                    Izaberi.Background = Brushes.Gray;
+                });
+
+
+                Thread.Sleep(1000);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     SacuvajUcionicu.Background = Brushes.Red;
 
-
                 });
-                Thread.Sleep(600);
+                Thread.Sleep(1000);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     SacuvajUcionicu.Background = old;
@@ -189,9 +243,10 @@ namespace hciProjekat
                 {
 
                     Ucionice.Add(SelectedUcionica);
+                    Izaberi.Background = Brushes.Gray;
                     RezimPregled = true;
                 });
-
+                RezimPregled = true;
                 EnableIzbrisi = true;
                 EnableIzmijeni = true;
                 App.Current.Dispatcher.Invoke((Action)delegate
@@ -200,8 +255,124 @@ namespace hciProjekat
                     Odustani.Visibility = Visibility.Hidden;
                     SacuvajIzmjenu.Visibility = Visibility.Hidden;
                     IzmjenaOdustani.Visibility = Visibility.Hidden;
+                    DodajButton.IsEnabled = true;
 
                 });
+                Thread.Sleep(2000);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    IzmijeniButton.Background = Brushes.Red;
+
+                });
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    IzmijeniButton.Background = old;
+
+                });
+
+                Thread.Sleep(200);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    gridUcionice.IsEnabled = true;
+                    DodajButton.IsEnabled = false;
+                    IzmjenaOdustani.Visibility = Visibility.Visible;
+                    SacuvajIzmjenu.Visibility = Visibility.Visible;
+                    
+
+                });
+                EnableIzmijeni = false;
+                EnableIzbrisi = false;
+                RezimPregled = false;
+
+
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    opisBox.Background = Brushes.Red;
+                });
+                SelectedUcionica.Opis = "d";
+                Thread.Sleep(300);
+                SelectedUcionica.Opis = "dr";
+                Thread.Sleep(300);
+                SelectedUcionica.Opis = "dru";
+                Thread.Sleep(300);
+                SelectedUcionica.Opis = "drug";
+                Thread.Sleep(300);
+                SelectedUcionica.Opis = "drugi";
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    opisBox.Background = Brushes.White;
+                });
+                Thread.Sleep(1000);
+
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajIzmjenu.Background = Brushes.Red;
+
+
+                });
+                Thread.Sleep(600);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajIzmjenu.Background = old;
+                });
+                Thread.Sleep(500);
+
+                
+                RezimPregled = true;
+                EnableIzbrisi = true;
+                EnableIzmijeni = true;
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    SacuvajUcionicu.Visibility = Visibility.Hidden;
+                    Odustani.Visibility = Visibility.Hidden;
+                    SacuvajIzmjenu.Visibility = Visibility.Hidden;
+                    IzmjenaOdustani.Visibility = Visibility.Hidden;
+                    DodajButton.IsEnabled = true;
+
+                });
+                Thread.Sleep(2000);
+
+                //obrisi
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    ObrisiButton.Background = Brushes.Red;
+
+                });
+                Thread.Sleep(1000);
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    ObrisiButton.Background = old;
+
+                });
+                
+
+                Thread.Sleep(1000);
+                
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+
+                    Ucionice.Remove(SelectedUcionica);
+                    if (Ucionice.Count > 0)
+                    {
+                        SelectedUcionica = Ucionice[0];
+                        var item = dgrUcionice.Items[0];
+                        dgrUcionice.SelectedItem = item;
+                        EnableIzmijeni = true;
+                        EnableIzbrisi = true;
+                    }
+                    else
+                    {
+                        SelectedUcionica = null;
+                        EnableIzmijeni = false;
+                        EnableIzbrisi = false;
+                    }
+                    RezimPregled = true;
+                });
+                
                 Thread.Sleep(2000);
             }
         }

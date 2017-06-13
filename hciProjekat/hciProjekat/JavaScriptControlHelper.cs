@@ -11,7 +11,7 @@ namespace hciProjekat
    
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         [ComVisible(true)]
-        class JavaScriptControlHelper
+        public class JavaScriptControlHelper
         {
             MainWindow prozor;
             PredmetiPage dodajPredmet;

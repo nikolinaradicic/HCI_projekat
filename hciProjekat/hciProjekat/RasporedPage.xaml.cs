@@ -518,8 +518,9 @@ namespace hciProjekat
             Predmet.sacuvajPredmete(PredmetiPage.getInstance().Predmeti.ToList());
         }
 
-        public void Ucitavanje_Metoda()
+        public bool Ucitavanje_Metoda()
         {
+            bool uzeo = false;
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
 
             if (openFileDialog.ShowDialog() == true)
@@ -534,11 +535,13 @@ namespace hciProjekat
                     var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                     ucionicaRaspored =  (List<UcionicaRaspored>) binaryFormatter.Deserialize(stream);
                 }
+                uzeo = true;
             }
+            
 
             List<Ucionica> sveUcionice = UcionicePage.getInstance().Ucionice.ToList();
             List<Predmet> sviPredmeti = PredmetiPage.getInstance().Predmeti.ToList();
-
+            return uzeo;
         }
 
         private void Button_Click_6(object sender, RoutedEventArgs e)

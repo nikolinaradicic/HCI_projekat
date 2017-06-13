@@ -39,7 +39,20 @@ namespace hciProjekat
             InitializeComponent();
         }
 
+        public IzborSoftvera(string v)
+        {
+            Softveri = new ObservableCollection<Softver>();
+            Softver s1 = new Softver("softver1", "naziv1", "proizvodjac", "sajt", 2007, 20000, "", OS.svejedno);
+            Softver s2 = new Softver("softver1", "naziv1", "proizvodjac", "sajt", 2007, 20000, "", OS.svejedno);
+            
+            Softveri.Add(s1);
+            Softveri.Add(s2);
+            this.DataContext = this;
+            InitializeComponent();
+        }
+
         private Softver selectedSoftver;
+        private string v;
 
         public Softver SelectedSoftver
         {

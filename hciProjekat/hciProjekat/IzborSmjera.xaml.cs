@@ -31,6 +31,18 @@ namespace hciProjekat
             InitializeComponent();
         }
 
+        public IzborSmjera(string v)
+        {
+            Smjerovi = new ObservableCollection<Smjer>();
+            Smjer s1 = new Smjer("s1", "n1", "opis1", "12/02/1995");
+            Smjer s2 = new Smjer("s2", "naziv2", "opis2","12/07/2001");
+            
+            Smjerovi.Add(s1);
+            Smjerovi.Add(s2);
+            this.DataContext = this;
+            InitializeComponent();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string info)
         {
@@ -41,6 +53,8 @@ namespace hciProjekat
         }
 
         private Smjer selectedSmjer;
+        private string v;
+
         public Smjer SelectedSmjer
         {
             get

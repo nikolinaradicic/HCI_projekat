@@ -26,6 +26,7 @@ namespace hciProjekat
         public MainWindow()
         {
             active = "nista";
+            demo = false;
             InitializeComponent();
             SoftverPage.getInstance();
             SmjeroviPage.getInstance();
@@ -35,9 +36,15 @@ namespace hciProjekat
         }
 
         private string active;
+        private bool demo;
+        UcionicePage demoUcionice;
+        SmjeroviPage demoSmjerovi;
+        PredmetiPage demoPredmeti;
+        SoftverPage demoSoftveri;
         
         private void Button1_Click(object sender, RoutedEventArgs e)
         {
+                zaustavi();
                 (sender as Button).ContextMenu.IsEnabled = true;
                 (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
                 (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
@@ -46,29 +53,36 @@ namespace hciProjekat
 
         private void Button2_Click(object sender, RoutedEventArgs e)
         {
-            
+            zaustavi();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             MainFrame.Content = UcionicePage.getInstance();
+            
             active = "ucionice";
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             MainFrame.Content = PredmetiPage.getInstance();
             active = "predmeti";
+            
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             MainFrame.Content = SoftverPage.getInstance();
             active = "softveri";
+            
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             MainFrame.Content = SmjeroviPage.getInstance();
             active = "smjerovi";
         }
@@ -206,11 +220,13 @@ namespace hciProjekat
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             postavi_pregled();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             (sender as Button).ContextMenu.IsEnabled = true;
             (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
             (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
@@ -220,18 +236,24 @@ namespace hciProjekat
 
         private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             postavi_novi();
         }
 
         private void ucitaj_postojeci_Click(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             RasporedPage rasp = RasporedPage.getInstance();
-            rasp.Ucitavanje_Metoda();
-            postavi_pregled();
+            if (rasp.Ucitavanje_Metoda())
+            {
+
+                postavi_pregled();
+            }
         }
 
         private void napravi_novi_Click(object sender, RoutedEventArgs e)
         {
+            zaustavi();
             RasporedPage rasp = RasporedPage.getInstance();
             rasp.Novi_Metoda();
             postavi_novi();
@@ -282,24 +304,125 @@ namespace hciProjekat
 
         private void ucioniceDemo_Click(object sender, RoutedEventArgs e)
         {
-            UcionicePage demo = new UcionicePage("demo");
+            zaustavi();
+            demoUcionice = new UcionicePage("demo");
             active = "ucionice";
-            MainFrame.Content = demo;
+            demo = true;
+            MainFrame.Content = demoUcionice;
         }
 
         private void predmetiDemo_Click(object sender, RoutedEventArgs e)
         {
-
+            zaustavi();
+            demoPredmeti = new PredmetiPage("demo");
+            active = "predmeti";
+            demo = true;
+            MainFrame.Content = demoPredmeti;
         }
 
         private void softveriDemo_Click(object sender, RoutedEventArgs e)
         {
+            zaustavi();
+            demoSoftveri = new SoftverPage("demo");
+            active = "softveri";
+            demo = true;
+            MainFrame.Content = demoSoftveri;
+        }
 
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                str = "Forma";
+                HelpProvider.ShowHelp(str, this);
+            }
         }
 
         private void smeroviDemo_Click(object sender, RoutedEventArgs e)
         {
+            zaustavi();
+            demoSmjerovi = new SmjeroviPage("demo");
+            active = "smjerovi";
+            demo = true;
+            MainFrame.Content = demoSmjerovi;
+        }
 
+
+        private void myTestKey(object sender, KeyEventArgs e)
+        {
+            if (demo)
+            {
+                MainFrame.Content = null;
+                demo = false;
+                if (active.Equals("ucionice"))
+                {
+
+                    demoUcionice.demoThread.Abort();
+                }
+                else if (active.Equals("smjerovi"))
+                {
+
+                    demoSmjerovi.demoThread.Abort();
+                }
+                else if (active.Equals("softveri"))
+                {
+                    demoSoftveri.demoThread.Abort();
+                }
+                else if (active.Equals("predmeti"))
+                {
+                    demoPredmeti.demoThread.Abort();
+                }
+                active = "nista";
+            }
+            
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            zaustavi();
+        }
+
+        public void doThings(string param)
+        {
+            Title = param;
+        }
+
+        private void zaustavi()
+        {
+            if (demo)
+            {
+                MainFrame.Content = null;
+                demo = false;
+                if (active.Equals("ucionice"))
+                {
+
+                    demoUcionice.demoThread.Abort();
+                }
+                else if (active.Equals("smjerovi"))
+                {
+
+                    demoSmjerovi.demoThread.Abort();
+                }
+                else if (active.Equals("softveri"))
+                {
+                    demoSoftveri.demoThread.Abort();
+                }
+                else if (active.Equals("predmeti"))
+                {
+                    demoPredmeti.demoThread.Abort();
+                }
+                active = "nista";
+
+            }
+        }
+
+        private void HandleWindowActivated(object sender, EventArgs e)
+        {
+            this.Focus();
+            Keyboard.Focus(this);
+            FocusManager.SetFocusedElement(this, this);
         }
     }
 }
