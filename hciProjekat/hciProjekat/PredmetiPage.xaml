@@ -8,9 +8,13 @@
       xmlns:en="clr-namespace:hciProjekat.Model"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
-           Width="800"
+      Width="800"
       Height="600"
-      Title="PredmetiPage">
+      Title="PredmetiPage"
+      local:HelpProvider.HelpKey="dodaj_predmet">
+    <Page.CommandBindings>
+      <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed" />
+    </Page.CommandBindings>
     <Page.Resources>
         <ObjectDataProvider x:Key="enumValues"
         MethodName="GetValues" ObjectType="{x:Type System:Enum}">

@@ -2,3 +2,4 @@ s2|ooooo|naziv smjera|2/23/1994 12:00:00 AM
 4|neki o|neki naziv|2/21/1991 12:00:00 AM
 u|u|u|10/26/1995 12:00:00 AM
 smjer|opis|naziv|7/4/2017 12:00:00 AM
+dss|sijd|bla|

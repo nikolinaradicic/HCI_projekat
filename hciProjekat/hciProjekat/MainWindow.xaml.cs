@@ -203,5 +203,9 @@ namespace hciProjekat
                 page.IzmijeniUcionicu();
 
         }
+        public void doThings(string param)
+        {
+            Title = param;
+        }
     }
 }

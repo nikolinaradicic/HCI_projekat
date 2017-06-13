@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelpProvider.cs" />
+    <Compile Include="HelpViewer.xaml.cs">
+      <DependentUpon>HelpViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IzborSmjera.xaml.cs">
       <DependentUpon>IzborSmjera.xaml</DependentUpon>
     </Compile>
@@ -64,6 +68,7 @@
     <Compile Include="IzborViseSoftvera.xaml.cs">
       <DependentUpon>IzborViseSoftvera.xaml</DependentUpon>
     </Compile>
+    <Compile Include="JavaScriptControlHelper.cs" />
     <Compile Include="Komande\Komande.cs" />
     <Compile Include="Model\ModelovanRaspored.cs" />
     <Compile Include="Model\Raspored.cs" />
@@ -85,6 +90,10 @@
     <Compile Include="UcionicePage.xaml.cs">
       <DependentUpon>UcionicePage.xaml</DependentUpon>
     </Compile>
+    <Page Include="HelpViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="IzborSmjera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,6 +192,27 @@
     <Resource Include="Icons\add.png" />
     <Resource Include="Icons\eraser.png" />
     <Resource Include="Icons\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Help\dodaj_predmet.html" />
+    <Content Include="Help\dodaj_smer.html" />
+    <Content Include="Help\dodaj_softver.html" />
+    <Content Include="Help\dodaj_ucionicu.html" />
+    <Content Include="Help\exit.html" />
+    <Content Include="Help\forma.html" />
+    <Content Include="Help\index.html" />
+    <Content Include="Help\izaberi_smer.html" />
+    <Content Include="Help\pravljenje_rasporeda.html" />
+    <Content Include="Help\pretraga_predmeta.html" />
+    <Content Include="Help\pretraga_smera.html" />
+    <Content Include="Help\pretraga_softvera.html" />
+    <Content Include="Help\pretraga_ucionice.html" />
+    <Content Include="Help\prikaz_predmeta.html" />
+    <Content Include="Help\prikaz_smera.html" />
+    <Content Include="Help\prikaz_softvera.html" />
+    <Content Include="Help\prozor_dodaj_softver.html" />
+    <Content Include="Help\prozor_prikaz_predmeta.html" />
+    <Content Include="Help\tabele.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
