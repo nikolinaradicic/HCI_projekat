@@ -25,6 +25,7 @@ namespace hciProjekat
 
         public MainWindow()
         {
+            active = "nista";
             InitializeComponent();
             SoftverPage.getInstance();
             SmjeroviPage.getInstance();
@@ -205,6 +206,38 @@ namespace hciProjekat
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
+            postavi_pregled();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).ContextMenu.IsEnabled = true;
+            (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
+            (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            (sender as Button).ContextMenu.IsOpen = true;
+
+        }
+
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        {
+            postavi_novi();
+        }
+
+        private void ucitaj_postojeci_Click(object sender, RoutedEventArgs e)
+        {
+            RasporedPage rasp = RasporedPage.getInstance();
+            rasp.Ucitavanje_Metoda();
+            postavi_pregled();
+        }
+
+        private void napravi_novi_Click(object sender, RoutedEventArgs e)
+        {
+            RasporedPage rasp = RasporedPage.getInstance();
+            rasp.Novi_Metoda();
+            postavi_novi();
+        }
+
+        private void postavi_pregled() {
             RasporedPage raspored = RasporedPage.getInstance();
             raspored.odabranP.Visibility = Visibility.Hidden;
             raspored.button_save.Visibility = Visibility.Hidden;
@@ -225,32 +258,16 @@ namespace hciProjekat
             raspored.confirm_ucionice.Visibility = Visibility.Hidden;
             raspored.confirm_ucionice_moj.Visibility = Visibility.Visible;
             MainFrame.Content = raspored;
-            
-            //active = "raspored";
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            (sender as Button).ContextMenu.IsEnabled = true;
-            (sender as Button).ContextMenu.PlacementTarget = (sender as Button);
-            (sender as Button).ContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            (sender as Button).ContextMenu.IsOpen = true;
-
-        }
-
-        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
-        {
+        private void postavi_novi() {
             RasporedPage raspored = RasporedPage.getInstance();
-           // raspored.gridMoj.Visibility = Visibility.Visible;
             raspored.odabranP.Visibility = Visibility.Visible;
-            //MessageBox.Show("hi");
             raspored.odabir_predmeta.Visibility = Visibility.Visible;
             raspored.confirm_ucionice_moj.Visibility = Visibility.Hidden;
-            raspored.confirm_ucionice.Visibility = Visibility.Hidden; 
+            raspored.confirm_ucionice.Visibility = Visibility.Hidden;
             raspored.prikazUcionica_Moj.Visibility = Visibility.Hidden;
             raspored.button_save.Visibility = Visibility.Hidden;
-            raspored.button_ucitaj.Visibility = Visibility.Visible;
-            //raspored.odabir_predmeta.Visibility = Visibility.Hidden;
             raspored.prikazTermina.Visibility = Visibility.Hidden;
             raspored.Label_odabir_termina.Visibility = Visibility.Hidden;
             raspored.Obrisi.Visibility = Visibility.Hidden;
@@ -261,8 +278,28 @@ namespace hciProjekat
             raspored.odabir_predmeta_dugme.Visibility = Visibility.Visible;
             MainFrame.Content = raspored;
 
-            //MainFrame.Content = RasporedPage.getInstance();
-           // active = "raspored";
+        }
+
+        private void ucioniceDemo_Click(object sender, RoutedEventArgs e)
+        {
+            UcionicePage demo = new UcionicePage("demo");
+            active = "ucionice";
+            MainFrame.Content = demo;
+        }
+
+        private void predmetiDemo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void softveriDemo_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void smeroviDemo_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

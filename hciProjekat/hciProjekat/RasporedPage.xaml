@@ -157,19 +157,5 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Name="button_ucitaj" Content="Ucitaj" Click="Button_Click_5" Foreground="White" Height="20" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right" Width="85">
-            <Button.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF36BDC3" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.BorderBrush>
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF36BDC3" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
     </Grid>
 </Page>

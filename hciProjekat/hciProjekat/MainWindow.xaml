@@ -137,6 +137,90 @@
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
+            <Button  ContextMenuService.IsEnabled="False" Content="Fajl" Click="Button_Click" Width="275" Cursor="Hand" Foreground="White" OpacityMask="#FF0F0808" AutomationProperties.IsRowHeader="True" FontWeight="Bold" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.ContextMenu>
+                    <ContextMenu  Width="275" Cursor="Hand" OpacityMask="#FF0F0808">
+                        <MenuItem Name="ucitaj_postojeci" Header="Ucitaj Postojeci" Foreground="Black" Click="ucitaj_postojeci_Click">
+                            <MenuItem.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                                </LinearGradientBrush>
+                            </MenuItem.Background>
+                        </MenuItem>
+                        <MenuItem Name="napravi_novi" Header="Napravi Novi" Foreground="Black" Click="napravi_novi_Click">
+                            <MenuItem.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                                </LinearGradientBrush>
+                            </MenuItem.Background>
+                        </MenuItem>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+            <Button ContextMenuService.IsEnabled="False" Content="Demo" Click="Button1_Click" Width="275" Cursor="Hand" Foreground="White" OpacityMask="#FF0F0808" AutomationProperties.IsRowHeader="True" FontWeight="Bold" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF36BDC3" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.ContextMenu x:Uid="cmenu">
+                    <ContextMenu  Width="275" Cursor="Hand" OpacityMask="#FF0F0808" x:Name="demomenu">
+                        <MenuItem Header="Demo Ucionice" x:Name="ucioniceDemo" Foreground="White" Click="ucioniceDemo_Click">
+                            <MenuItem.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                                </LinearGradientBrush>
+                            </MenuItem.Background>
+                        </MenuItem>
+                        <MenuItem Header="Demo Predmeti" x:Name="predmetiDemo" Foreground="White" Click="predmetiDemo_Click">
+                            <MenuItem.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                                </LinearGradientBrush>
+                            </MenuItem.Background>
+                        </MenuItem>
+                        <MenuItem Header="Demo Softveri" x:Name="softveriDemo" Foreground="White" Click="softveriDemo_Click">
+                            <MenuItem.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                                </LinearGradientBrush>
+                            </MenuItem.Background>
+                        </MenuItem>
+                        <MenuItem Header="Demo Smerovi" x:Name="smeroviDemo" Foreground="White" Click="smeroviDemo_Click">
+                            <MenuItem.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="#FF36BDC3" Offset="1"/>
+                                </LinearGradientBrush>
+                            </MenuItem.Background>
+                        </MenuItem>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
         </StackPanel>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" RenderTransformOrigin="0.105,0.453" Margin="5,185,7,-1"  Width="800"
       Height="600"/>

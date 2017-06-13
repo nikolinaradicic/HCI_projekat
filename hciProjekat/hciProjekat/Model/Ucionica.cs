@@ -104,8 +104,12 @@ namespace hciProjekat.Model
             }
             set
             {
-                instaliranOS = value;
-            }
+                if(instaliranOS != value)
+                {
+                    instaliranOS = value;
+                    OnPropertyChanged("InstaliranOS");
+                }
+           }
         }
 
         public string Id
@@ -116,7 +120,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                id = value;
+                if (id != value)
+                {
+                    id = value;
+                    OnPropertyChanged("Id");
+                }
             }
         }
 
@@ -128,7 +136,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                opis = value;
+                if (opis != value)
+                {
+                    opis = value;
+                    OnPropertyChanged("Opis");
+                }
             }
         }
 
@@ -156,7 +168,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                projektor = value;
+                if (projektor != value)
+                {
+                    projektor = value;
+                    OnPropertyChanged("Projektor");
+                }
             }
         }
 
@@ -168,7 +184,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                tabla = value;
+                if (tabla != value)
+                {
+                    tabla = value;
+                    OnPropertyChanged("Tabla");
+                }
             }
         }
 
@@ -180,7 +200,11 @@ namespace hciProjekat.Model
             }
             set
             {
-                pametnaTabla = value;
+                if (pametnaTabla != value)
+                {
+                    pametnaTabla= value;
+                    OnPropertyChanged("PametnaTabla");
+                }
             }
         }
 
